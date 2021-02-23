@@ -1,4 +1,4 @@
-function [labels_ROM, vector_ROM] = ROM_Shoulder_octave()
+function [labels_ROM, vector_ROM] = ROM_Shoulder_octave(input_path)
 %% Range of movement of Shoulder in Sagittal Lifting
 
 % Code AUTHOR: Yaiza Benito Molpeceres. DATE: January-May 2020.
@@ -15,11 +15,12 @@ function [labels_ROM, vector_ROM] = ROM_Shoulder_octave()
 
 pkg load signal
 
-clear all % Clear variables
+%clear all % Clear variables
 close all % Close figures
 clc
 
-load('..\tests\data\input\Dinamica44_B.mat')
+%load('..\tests\data\input\Dinamica44_B.mat')
+load(input_path)
 
 Ts = 1/Fs;
 t_total = (double(frames)*Ts);
