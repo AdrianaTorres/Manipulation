@@ -26,7 +26,7 @@ addpath("Tools/src")
 Main_ROM_LBT_Exo('Range_of_movement_octave/tests/data/input/dinamica56_B.mat', "output")
 
 # For the Range of Movement computation of the Lateral Box Transfer task Without Exoskeleton
-Main_ROM_LBT_Without('Range_of_movement_octave/tests/data/input/dinamica42_B.mat')
+Main_ROM_LBT_Without('Range_of_movement_octave/tests/data/input/dinamica42_B.mat', "output")
 
 # For the Range of Movement computation of the Sagittal Lifting task 
 Main_ROM_SagittalLifting_octave('Range_of_movement_octave/tests/data/input/Dinamica44_B.mat', "output")
