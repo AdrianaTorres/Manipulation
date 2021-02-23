@@ -1,0 +1,2 @@
+The files "Main_ROM_XXXX.m" are those that must be run. Each of the files calls to the necessary functions
+for calculation of the Range of Movement for each experiment: Sagittal Lifting, LBT with Exo, LBT without Exo.
