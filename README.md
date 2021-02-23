@@ -29,7 +29,7 @@ Main_ROM_LBT_Exo()
 Main_ROM_LBT_Without()
 
 # For the Range of Movement computation of the Sagittal Lifting task 
-Main_ROM_SagittalLifting_octave("Range_of_movement_octave\tests\data\input\Dinamica44_B.mat", "output")
+Main_ROM_SagittalLifting_octave('Range_of_movement_octave/tests/data/input/Dinamica44_B.mat', "output")
 ```
 
 ### Using the scripts
