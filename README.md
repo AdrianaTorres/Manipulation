@@ -23,7 +23,7 @@ If octave is opened from the repository root, assuming we created before a folde
 addpath("Range_of_movement_octave/src")
 addpath("Tools/src")
 # For the Range of Movement computation of the Lateral Box Transfer task With Exoskeleton
-Main_ROM_LBT_Exo('Range_of_movement_octave/tests/data/input/dinamica56_B.mat')
+Main_ROM_LBT_Exo('Range_of_movement_octave/tests/data/input/dinamica56_B.mat', "output")
 
 # For the Range of Movement computation of the Lateral Box Transfer task Without Exoskeleton
 Main_ROM_LBT_Without()
