@@ -9,7 +9,7 @@ function is_ok = store_vector_of_vector_result(filename, data1, data2, data3, da
             value_str = sprintf("%s, ", value_str);
           endif
         endfor
-        value_str = sprintf("%s]\n", value_str);
+        value_str = sprintf("%s]\n\n", value_str);
         fprintf(file_id, value_str);
     endfunction
 

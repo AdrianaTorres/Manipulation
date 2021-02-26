@@ -1,4 +1,4 @@
-function [labels_ROM, vector_ROM] = ROMKnee_LBTExo_octave()
+function [labels_ROM, vector_ROM] = ROMKnee_LBTExo_octave(input_path)
 %% Range of movement of Knee in Lateral Box Transfer
 
 % Code AUTHOR: Yaiza Benito Molpeceres. DATE: January-May 2020.
@@ -15,11 +15,12 @@ function [labels_ROM, vector_ROM] = ROMKnee_LBTExo_octave()
 
 pkg load signal
 
-clear all % Clear variables
+%clear all % Clear variables
 close all % Close figures
 clc
 
-load('..\tests\data\input\dinamica55_B.mat')
+##load('..\tests\data\input\dinamica55_B.mat')
+load(input_path)
            
 Ts = 1/Fs;
 t_total = (double(frames)*Ts);
@@ -82,6 +83,8 @@ for count=1:1:length(pks)
 end
 pks=pks(prominence>10);    
 locs=locs(prominence>10);
+
+clear prominence
 
 
 

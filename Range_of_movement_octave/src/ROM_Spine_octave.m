@@ -1,4 +1,4 @@
-function [labels_ROM, vector_ROM] = ROM_Spine_octave()
+function [labels_ROM, vector_ROM] = ROM_Spine_octave(input_path)
 %% Range of movement of Spine in Sagittal Lifting
 
 % Code AUTHOR: Yaiza Benito Molpeceres. DATE: January-May 2020.
@@ -13,12 +13,13 @@ function [labels_ROM, vector_ROM] = ROM_Spine_octave()
     
 % ROM is calculated for phases 1, 2, 4 and 5, which are renamed as 1, 2, 3 and 4.
 
-clear all % Clear variables
+%clear all % Clear variables
 close all % Close figures
 clc
 
-load('..\tests\data\input\dinamica44_B.mat')
-          
+%load('..\tests\data\input\dinamica44_B.mat')
+load(input_path) 
+ 
 Ts = 1/Fs;
 t_total = (double(frames)*Ts);
 %t_1000 = 0:(t_total/1000):(t_total-(t_total/1000));

@@ -1,4 +1,4 @@
-function [labels_ROM, vector_ROM] = ROMHip_LBTExo_octave()
+function [labels_ROM, vector_ROM] = ROMHip_LBTExo_octave(input_path)
 %% Range of movement of Hip in Lateral Box Transfer
 
 % Code AUTHOR: Yaiza Benito Molpeceres. DATE: January-May 2020.
@@ -15,12 +15,13 @@ function [labels_ROM, vector_ROM] = ROMHip_LBTExo_octave()
 
 pkg load signal
 
-clear all % Clear variables
+%clear all % Clear variables
 close all % Close figures
 clc
 
-load('..\tests\data\input\dinamica55_B.mat')
-           
+%load('..\tests\data\input\dinamica55_B.mat')
+load(input_path) 
+ 
 Ts = 1/Fs;
 t_total = (double(frames)*Ts);
 t_1000 = 0:(t_total/1000):(t_total-(t_total/1000));
@@ -86,6 +87,7 @@ end
 pks=pks(prominence>10);    
 locs=locs(prominence>10);
 
+clear prominence
 
 
 e = locs < 500 | locs > 800;
@@ -145,7 +147,7 @@ end
 pks2=pks2(prominence>10);    
 locs2=locs2(prominence>10);
 
-
+clear prominence
 
 
 
