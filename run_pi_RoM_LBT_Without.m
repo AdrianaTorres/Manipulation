@@ -2,7 +2,7 @@
 
 printf ("current directory: %s\n", pwd())
 addpath("Range_of_movement_octave/src")
-addpath("Tools/src")
+#addpath("Tools/src")
 
 arg_list = argv ();
 if nargin != 2
