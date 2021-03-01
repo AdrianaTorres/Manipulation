@@ -362,10 +362,16 @@ title('Segmentation Without Exoskeleton Trials')
 
 figure(2)
 frames = length(LHEE_z);
+
+if frames >= 1000
+  end_ = frames
+else
+  end_ = frames+(frames/1000)
+endif
 % (1:(frames/1000):frames)  si frames>1000
 % (1:(frames/1000):frames+(frames/1000)) si frames<1000
 % +(frames/1000)
-plot(t_1000,RElbowAngles_x(1:(frames/1000):frames)); 
+plot(t_1000,RElbowAngles_x(1:(frames/1000):end_)); 
 hold on 
 plot(t_1000, flex_elbow,'--',t_1000, ext_elbow,'--'); 
 legend({'x', 'Normal range of flexion-extension'},'Location','best');
@@ -375,7 +381,7 @@ ylabel('Degrees');
 title('Right Elbow angles: Flexo-Extension');
 
 figure(3)
-plot(t_1000, RElbowAngles_y(1:(frames/1000):frames));
+plot(t_1000, RElbowAngles_y(1:(frames/1000):end_));
 legend({'y'},'Location','best');
 xlabel('Time in seconds (%1000 lifting cycle)'); %tanto por mil 
 ylabel('Degrees');
@@ -383,7 +389,7 @@ ylabel('Degrees');
 title('Right Elbow angles: Supination-Pronation');
 
 figure(4)
-plot(t_1000, RElbowAngles_z(1:(frames/1000):frames));
+plot(t_1000, RElbowAngles_z(1:(frames/1000):end_));
 legend({'z'},'Location','best');
 xlabel('Time in seconds (%1000 lifting cycle)'); %tanto por mil 
 ylabel('Degrees');
@@ -394,7 +400,7 @@ figure(5)
 % (1:(frames/1000):frames)  si frames>1000
 % (1:(frames/1000):frames+(frames/1000)) si frames<1000
 % +(frames/1000)
-plot(t_1000,LElbowAngles_x(1:(frames/1000):frames)); 
+plot(t_1000,LElbowAngles_x(1:(frames/1000):end_)); 
 hold on 
 plot(t_1000, flex_elbow,'--',t_1000, ext_elbow,'--'); 
 legend({'x', 'Normal range of flexion-extension'},'Location','best');
@@ -404,7 +410,7 @@ ylabel('Degrees');
 title('Left Elbow angles: Flexo-Extension');
 
 figure(6)
-plot(t_1000, LElbowAngles_y(1:(frames/1000):frames));
+plot(t_1000, LElbowAngles_y(1:(frames/1000):end_));
 legend({'y'},'Location','best');
 xlabel('Time in seconds (%1000 lifting cycle)'); %tanto por mil 
 ylabel('Degrees');
@@ -412,7 +418,7 @@ ylabel('Degrees');
 title('Left Elbow angles: Supination-Pronation');
 
 figure(7)
-plot(t_1000, LElbowAngles_z(1:(frames/1000):frames));
+plot(t_1000, LElbowAngles_z(1:(frames/1000):end_));
 legend({'z'},'Location','best');
 xlabel('Time in seconds (%1000 lifting cycle)'); %tanto por mil 
 ylabel('Degrees');
