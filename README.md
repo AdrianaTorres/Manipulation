@@ -30,6 +30,16 @@ Main_ROM_LBT_Without('Range_of_movement_octave/tests/data/input/dinamica42_B.mat
 
 # For the Range of Movement computation of the Sagittal Lifting task 
 Main_ROM_SagittalLifting_octave('Range_of_movement_octave/tests/data/input/dinamica44_B.mat', "output")
+
+
+# For the Postural Stability computation of the Lateral Box Transfer task With Exoskeleton
+Main_PosturalStability_Lateral_Exo('Postural_Stability_octave/tests/data/input/dinamica56_B.mat', "output")
+
+# For the Postural Stability computation of the Lateral Box Transfer task Without Exoskeleton
+Main_PosturalStability_Lateral_Without('Postural_Stability_octave/tests/data/input/dinamica08_B.mat', "output")
+
+# For the Postural Stability computation of the Sagittal Lifting task 
+Main_PosturalStability_Sagittal('Postural_Stability_octave/tests/data/input/dinamica61_B.mat', "output")
 ```
 
 ### Using the scripts
