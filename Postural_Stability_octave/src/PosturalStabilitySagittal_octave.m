@@ -1,3 +1,4 @@
+function [ps_vector, ps_label] = PosturalStabilitySagittal_octave(file_input)
 %% Postural Stability in Sagittal Lifting task: COM deviation from centre of Base of Support
 
 % Based on "Investigation and Analysis of the Effects of Manual Lifting and Carrying Activities on Postural and Gait Stability in Normal Subjects", Mohammed Alamoudi, University of Miami, 2017.
@@ -10,11 +11,11 @@
 pkg load signal
 pkg load geometry
 
-clear all % Clear variables
-close all % Close figures
-clc
+##clear all % Clear variables
+##close all % Close figures
+##clc
 
-load('..\tests\data\input\dinamica61_B.mat') 
+load(file_input) 
 
 % LTOE RTOE LHEE RHEE LFOO2 RFOO2 marker trajectories
     LTOE_x = LTOE(:,1)'; 
@@ -289,7 +290,7 @@ title('Example of Base of Support Representation');
 
 %PS = table([AP_dev_mean;  ML_dev_mean;  Total_dev_mean; PosturalStability_AP; PosturalStability_ML],'VariableNames',{'Postural_Stability_Measures'},'RowNames',{'Average A/P Deviation (mm)','Average M/L Deviation (mm)','Average Total Deviation (mm)','Postural Stability (A/P)','Postural Stability(M/L)'})
 PS = struct;
-    PS.Average_ApP_deviation_mm=AP_dev_mean; 
+PS.Average_ApP_deviation_mm=AP_dev_mean; 
 PS.Average_MpL_deviation_mm=ML_dev_mean; 
 PS.Average_Total_deviation_mm=Total_dev_mean; 
 PS.Postural_Stability_ApP=PosturalStability_AP;
@@ -297,5 +298,7 @@ PS.Postural_Stability_MpL=PosturalStability_ML;
 
 PS
 
-     
+ps_vector = [PS.Average_ApP_deviation_mm, PS.Average_MpL_deviation_mm, PS.Average_Total_deviation_mm, PS.Postural_Stability_ApP, PS.Postural_Stability_MpL]
+ps_label = "'Mean_AnteriorPosterior_Deviation', 'Mean_MedioLaterial_Deviation', 'Mean_Total_Deviation', 'AnterioPosteiror_PosturalStability', 'MedioLateral_PosturalStability'"
 
+end

@@ -1,0 +1,3 @@
+type: 'vector'
+label: ['Mean_AnteriorPosterior_Deviation', 'Mean_MedioLaterial_Deviation', 'Mean_Total_Deviation', 'AnterioPosteiror_PosturalStability', 'MedioLateral_PosturalStability']
+value: [26.60666, 18.92911, 35.52074, 21.45738, 14.48644]
