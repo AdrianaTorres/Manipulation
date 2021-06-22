@@ -36,14 +36,115 @@ end
  
 position_Z = SIDEBOX3(:,3)';
  
-[pks, locs] = findpeaks(position_Z,'minPeakProminence',20);
+##[pks, locs] = findpeaks(position_Z,'minPeakProminence',20);
+[pks, locs] = findpeaks(position_Z, 'DoubleSided');
+
+
+for count=1:1:length(pks)
+    if count==1
+        signal_aux_L=position_Z(1:locs(count));
+        signal_aux_R=position_Z(locs(count):locs(count+1));
+    else if count==length(pks)
+            signal_aux_L=position_Z(locs(count-1):locs(count));
+            signal_aux_R=position_Z(locs(count):end);
+        else
+            signal_aux_L=position_Z(locs(count-1):locs(count));
+            signal_aux_R=position_Z(locs(count):locs(count+1));
+        end
+    end
+    try
+      min_L_aux=findpeaks(1.01*max(signal_aux_L)-signal_aux_L,'DoubleSided');
+      min_L=min(1.01*max(signal_aux_L)-min_L_aux);
+      if isempty(min_L)
+        min_L=min(signal_aux_L);
+      end
+    catch
+      min_L=min(signal_aux_L);
+    end
+    try
+      min_R_aux=findpeaks(1.01*max(signal_aux_R)-signal_aux_R,'DoubleSided');
+      min_R=min(1.01*max(signal_aux_R)-min_R_aux);
+      if isempty(min_R)
+        min_R=min(signal_aux_R);
+      end
+    catch
+      min_R=min(signal_aux_R);
+    end
+    real_min=min(min_L,min_R);
+    prominence(count)=pks(count)-real_min;
+end
+pks=pks(prominence>20);    
+locs=locs(prominence>20);
+
+
 t = (0:1:(length(position_Z)-1))*Ts;
  
-TF1 = islocalmin(position_Z, 'FlatSelection','first');
+%TF1 = islocalmin(position_Z, 'FlatSelection','first');
+[TF1,locs_TF1] = findpeaks(1.01*max(position_Z(1:locs(1)))-position_Z(1:locs(1)),'DoubleSided');
+TF1=1.01*max(position_Z(1:locs(1)))-TF1;
+
+TF1_aux=zeros(1,length(TF1));
+for count=1:1:length(TF1)-1
+  if TF1(count+1)==TF1(count)
+    TF1_aux(count+1)=1;
+  end
+end
+TF1(find(TF1_aux))=[];
+locs_TF1(find(TF1_aux))=[]; 
+
+
+for count_aux=1:1:length(pks)-1
+  %TF1 = islocalmin(position_Z, 'FlatSelection','first');
+  [TF1_2,locs_TF1_2] = findpeaks(1.01*max(position_Z(locs(count_aux):locs(count_aux+1)))-position_Z(locs(count_aux):locs(count_aux+1)),'DoubleSided');
+  TF1_2=1.01*max(position_Z(locs(count_aux):locs(count_aux+1)))-TF1_2;
+
+  TF1_aux_2=zeros(1,length(TF1_2));
+  for count=1:1:length(TF1_2)-1
+    if TF1_2(count+1)==TF1_2(count)
+      TF1_aux_2(count+1)=1;
+    end
+  end
+  TF1_2(find(TF1_aux_2))=[];
+  locs_TF1_2(find(TF1_aux_2))=[];
+  TF1 = [TF1,TF1_2];
+  locs_TF1 = [locs_TF1,locs_TF1_2+locs(count_aux)];
+endfor
+
+
+%TF1 = islocalmin(position_Z, 'FlatSelection','first');
+[TF1_2,locs_TF1_2] = findpeaks(1.01*max(position_Z(locs(end):end))-position_Z(locs(end):end),'DoubleSided');
+TF1_2=1.01*max(position_Z(locs(end):end))-TF1_2;
+
+TF1_aux_2=zeros(1,length(TF1_2));
+for count=1:1:length(TF1_2)-1
+  if TF1_2(count+1)==TF1_2(count)
+    TF1_aux_2(count+1)=1;
+  end
+end
+TF1_2(find(TF1_aux_2))=[];
+locs_TF1_2(find(TF1_aux_2))=[]; 
+
+TF1 = [TF1,TF1_2];
+locs_TF1 = [locs_TF1,locs_TF1_2+locs(end)];
+
+for count=1:1:length(TF1)-1
+    for count_aux=1:1:length(pks)
+        if TF1(count)==pks(count_aux)
+          TF1_aux(count)=1;
+        end
+    end
+end
+
+TF1(find(TF1_aux))=[];
+locs_TF1(find(TF1_aux))=[];
+
+
 %for i = 1:frames                               % solo para dinamica 03
  %   TF2(1,i) = position_Z(1,i) > 0;
 %end
-idx = find(TF1);
+%idx = find(TF1);
+idx = locs_TF1;
+
 %idx_03 = find(TF2);
 flat = idx < locs(1);
 idx_flat = find(flat);
@@ -69,16 +170,77 @@ idxF4 = length(position_Z);
 figure(1)
 plot(t,position_Z,t(locs),position_Z(locs),'o');
 hold on
-plot(t,position_Z,'r*','MarkerIndices',idxO1);
-plot(t,position_Z,'r*','MarkerIndices',idxF1);
-plot(t,position_Z,'r*','MarkerIndices',idxF2);
-plot(t,position_Z,'r*','MarkerIndices',idxO3);
-plot(t,position_Z,'r*','MarkerIndices',idxF3);
-plot(t,position_Z,'r*','MarkerIndices',idxF4);
+%plot(t,position_Z,'r*','MarkerIndices',idxO1);
+plot(t(idxO1),position_Z(idxO1),'r*');
+
+%plot(t,position_Z,'r*','MarkerIndices',idxF1);
+plot(t(idxF1),position_Z(idxF1),'r*');
+
+%plot(t,position_Z,'r*','MarkerIndices',idxF2);
+plot(t(idxF2),position_Z(idxF2),'r*');
+
+%plot(t,position_Z,'r*','MarkerIndices',idxO3);
+plot(t(idxO3),position_Z(idxO3),'r*');
+
+%plot(t,position_Z,'r*','MarkerIndices',idxF3);
+plot(t(idxF3),position_Z(idxF3),'r*');
+
+%plot(t,position_Z,'r*','MarkerIndices',idxF4);
+plot(t(idxF4),position_Z(idxF4),'r*');
+
 hold off
 xlabel('Time in seconds');
 ylabel('Millimetres');
 title('Box signal segmentation in 4 phases'); % or title: Sagittal Lifting Segmentation
+
+
+
+%%---------------------------------------------------------------------------
+##t = (0:1:(length(position_Z)-1))*Ts;
+## 
+##TF1 = islocalmin(position_Z, 'FlatSelection','first');
+##%for i = 1:frames                               % solo para dinamica 03
+## %   TF2(1,i) = position_Z(1,i) > 0;
+##%end
+##idx = find(TF1);
+##%idx_03 = find(TF2);
+##flat = idx < locs(1);
+##idx_flat = find(flat);
+##flat2 = idx > locs(1);
+##idx_flat2 = find(flat2);
+## 
+##flat3 = idx < locs(2);
+##idx_flat3 = find(flat3);
+## 
+##flat4 = idx > locs(2);
+##idx_flat4 = find(flat4);
+## 
+##% Indexes definiton for signal segmentation
+##idxO1 = 1;
+##idxF1 = idx(idx_flat(length(idx_flat)));
+##%idxF1 = idx_03(1)-1;                               % solo para dinamica 03
+##idxF2 = idx(idx_flat2(1)); 
+##idxO3 = idx(idx_flat3(length(idx_flat3))); 
+##idxF3 = idx(idx_flat4(1));                         % para dinamica 59 es 4, para din 03 y din 61 es 2 y para el resto es 1                    
+##idxF4 = length(position_Z);
+## 
+##% Visualization of the segmentation
+##figure(1)
+##plot(t,position_Z,t(locs),position_Z(locs),'o');
+##hold on
+##plot(t,position_Z,'r*','MarkerIndices',idxO1);
+##plot(t,position_Z,'r*','MarkerIndices',idxF1);
+##plot(t,position_Z,'r*','MarkerIndices',idxF2);
+##plot(t,position_Z,'r*','MarkerIndices',idxO3);
+##plot(t,position_Z,'r*','MarkerIndices',idxF3);
+##plot(t,position_Z,'r*','MarkerIndices',idxF4);
+##hold off
+##xlabel('Time in seconds');
+##ylabel('Millimetres');
+##title('Box signal segmentation in 4 phases'); % or title: Sagittal Lifting Segmentation
+%%--------------------------------------------------------------------------------------------------
+
+
 
 %% Import model data for Spine Relative Angles
 
