@@ -65,5 +65,5 @@ From the repository root, assuming that folder `output` already exists:
 ./run_pi_PosturalStability_LBT_Without.m Postural_Stability_octave/tests/data/input/dinamica08_B.mat output
 
 # for the Postural Stability of the Sagittal Lifting Task
-./run_pi_PosturalStability_SagittalLiftin.m Postural_Stability_octave/tests/data/input/dinamica61_B.mat output
+./run_pi_PosturalStability_SagittalLifting.m Postural_Stability_octave/tests/data/input/dinamica61_B.mat output
 ```
