@@ -1,0 +1,3 @@
+type: 'vector'
+label: ['Time Phase 1', 'Time Phase 2', 'Time Phase 3', 'Time Sum', 'Time Complete Trial']
+value: [4.54000, 5.15000, 2.07000, 11.76000, 11.76000]
