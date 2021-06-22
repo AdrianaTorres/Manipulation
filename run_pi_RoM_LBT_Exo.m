@@ -17,4 +17,4 @@ endif
 printf ("LBT data Exo mat : %s\n", arg_list{1});
 printf ("result dir: %s\n", arg_list{2});
 
-Main_ROM_LBT_Without(arg_list{1}, arg_list{2})
+Main_ROM_LBT_Exo(arg_list{1}, arg_list{2})
