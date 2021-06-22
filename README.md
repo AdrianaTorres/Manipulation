@@ -37,12 +37,12 @@ Main_ROM_SagittalLifting_octave('Range_of_movement_octave/tests/data/input/Dinam
 From the repository root, assuming that folder `output` already exists:
 
 ```term
-# for the Range of Movement of the Sagittal Lifting Task
-./run_pi_RoM_SagittalLiftin Range_of_movement_octave/tests/data/input/Dinamica44_B.mat output
-
-# for the Range of Movement of the LBT with Exoskeleton
+# for the Range of Movement of the LBT With Exoskeleton
 ./run_pi_RoM_LBT_Exo Range_of_movement_octave/tests/data/input/dinamica56_B.mat output
 
-# for the Range of Movement of the LBT without Exoskeleton
+# for the Range of Movement of the LBT Without Exoskeleton
 ./run_pi_RoM_LBT_Without Range_of_movement_octave/tests/data/input/dinamica42_B.mat output
+
+# for the Range of Movement of the Sagittal Lifting Task
+./run_pi_RoM_SagittalLiftin Range_of_movement_octave/tests/data/input/dinamica44_B.mat output
 ```
