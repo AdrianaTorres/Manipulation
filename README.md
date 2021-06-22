@@ -66,4 +66,15 @@ From the repository root, assuming that folder `output` already exists:
 
 # for the Postural Stability of the Sagittal Lifting Task
 ./run_pi_PosturalStability_SagittalLifting.m Postural_Stability_octave/tests/data/input/dinamica61_B.mat output
+
+
+
+# for the Performance Time of the LBT With Exoskeleton
+./run_pi_PerformanceTime_LBT_Exo.m Performance_Time_octave/tests/data/input/dinamica56_B.mat output
+
+# for the Performance Time of the LBT Without Exoskeleton
+./run_pi_PerformanceTime_LBT_Without.m Performance_Time_octave/tests/data/input/dinamica42_B.mat output
+
+# for the Sagittal Lifting of the Sagittal Lifting Task
+./run_pi_PerformanceTime_SagittalLifting.m Performance_Time_octave/tests/data/input/dinamica44_B.mat output
 ```
