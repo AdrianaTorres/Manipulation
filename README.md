@@ -40,6 +40,17 @@ Main_PosturalStability_Lateral_Without('Postural_Stability_octave/tests/data/inp
 
 # For the Postural Stability computation of the Sagittal Lifting task 
 Main_PosturalStability_Sagittal('Postural_Stability_octave/tests/data/input/dinamica61_B.mat', "output")
+
+
+
+# For the Performance Time computation of the Lateral Box Transfer task With Exoskeleton
+Main_Time_LBT_Exo_octave('Performance_Time_octave/tests/data/input/dinamica56_B.mat', "output")
+
+# For the Postural Stability computation of the Lateral Box Transfer task Without Exoskeleton
+Main_Time_LBT_Without_octave('Performance_Time_octave/tests/data/input/dinamica42_B.mat', "output")
+
+# For the Postural Stability computation of the Sagittal Lifting task 
+Main_Time_SagittalLifting_octave('Performance_Time_octave/tests/data/input/dinamica44_B.mat', "output")
 ```
 
 ### Using the scripts
