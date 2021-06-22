@@ -54,7 +54,7 @@ From the repository root, assuming that folder `output` already exists:
 ./run_pi_RoM_LBT_Without.m Range_of_movement_octave/tests/data/input/dinamica42_B.mat output
 
 # for the Range of Movement of the Sagittal Lifting Task
-./run_pi_RoM_SagittalLiftin.m Range_of_movement_octave/tests/data/input/dinamica44_B.mat output
+./run_pi_RoM_SagittalLifting.m Range_of_movement_octave/tests/data/input/dinamica44_B.mat output
 
 
 
