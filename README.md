@@ -48,11 +48,16 @@ Main_PosturalStability_Sagittal('Postural_Stability_octave/tests/data/input/dina
 # For the Performance Time computation of the Lateral Box Transfer task With Exoskeleton
 Main_Time_LBT_Exo_octave('Performance_Time_octave/tests/data/input/dinamica56_B.mat', "output")
 
-# For the Postural Stability computation of the Lateral Box Transfer task Without Exoskeleton
+# For the Performance Time computation of the Lateral Box Transfer task Without Exoskeleton
 Main_Time_LBT_Without_octave('Performance_Time_octave/tests/data/input/dinamica42_B.mat', "output")
 
-# For the Postural Stability computation of the Sagittal Lifting task 
+# For the Performance Time computation of the Sagittal Lifting task 
 Main_Time_SagittalLifting_octave('Performance_Time_octave/tests/data/input/dinamica44_B.mat', "output")
+
+
+
+# For the Smoothnes computation of the Sagittal Lifting task 
+Main_Time_Smoothness_octave('Smoothness_octave/tests/data/input/dinamica57_B.mat', "output")
 ```
 
 ### Using the scripts
@@ -88,6 +93,11 @@ From the repository root, assuming that folder `output` already exists:
 # for the Performance Time of the LBT Without Exoskeleton
 ./run_pi_PerformanceTime_LBT_Without.m Performance_Time_octave/tests/data/input/dinamica42_B.mat output
 
-# for the Sagittal Lifting of the Sagittal Lifting Task
+# for the Performance Time of the Sagittal Lifting Task
 ./run_pi_PerformanceTime_SagittalLifting.m Performance_Time_octave/tests/data/input/dinamica44_B.mat output
+
+
+
+# for the Smoothness of the Sagittal Lifting Task
+./run_pi_Smoothness_SagittalLifting.m Smoothness_octave/tests/data/input/dinamica57_B.mat output
 ```
