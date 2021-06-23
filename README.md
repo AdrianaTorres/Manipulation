@@ -58,6 +58,17 @@ Main_Time_SagittalLifting_octave('Performance_Time_octave/tests/data/input/dinam
 
 # For the Smoothnes computation of the Sagittal Lifting task 
 Main_Time_Smoothness_octave('Smoothness_octave/tests/data/input/dinamica57_B.mat', "output")
+
+
+
+# For the Spinal Loads computation of the Lateral Box Transfer task With Exoskeleton
+Main_SpinalLoadsEstim_octave('Performance_Time_octave/tests/data/input/dinamica56_B.mat', "output", "exo")
+
+# For the Spinal Loads computation of the Lateral Box Transfer task Without Exoskeleton
+Main_SpinalLoadsEstim_octave('Performance_Time_octave/tests/data/input/dinamica42_B.mat', "output", "no-exo")
+
+# For the Spinal Loads computation of the Sagittal Lifting Task
+Main_SpinalLoadsEstim_octave('Performance_Time_octave/tests/data/input/dinamica44_B.mat', "output", "sagittal")
 ```
 
 ### Using the scripts
@@ -100,4 +111,15 @@ From the repository root, assuming that folder `output` already exists:
 
 # for the Smoothness of the Sagittal Lifting Task
 ./run_pi_Smoothness_SagittalLifting.m Smoothness_octave/tests/data/input/dinamica57_B.mat output
+
+
+
+# for the Spinal Loads Estimation of the LBT With Exoskeleton
+./run_pi_SpinalLoadsEstimation.m Smoothness_octave/tests/data/input/dinamica56_B.mat output exo
+
+# for the Spinal Loads Estimation of the LBT Without Exoskeleton
+./run_pi_SpinalLoadsEstimation.m Smoothness_octave/tests/data/input/dinamica42_B.mat output no-exo
+
+# for the Spinal Loads Estimation of the Sagittal Lifting Task
+./run_pi_SpinalLoadsEstimation.m Smoothness_octave/tests/data/input/dinamica44_B.mat output sagittal
 ```
