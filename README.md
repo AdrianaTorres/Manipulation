@@ -84,9 +84,6 @@ From the repository root, assuming that folder `output` already exists:
 
 # for the Range of Movement of the Sagittal Lifting Task
 ./run_pi_RoM_SagittalLifting.m Range_of_movement_octave/tests/data/input/dinamica44_B.mat output
-
-
-
 # for the Postural Stability of the LBT With Exoskeleton
 ./run_pi_PosturalStability_LBT_Exo.m Postural_Stability_octave/tests/data/input/dinamica56_B.mat output
 
@@ -95,8 +92,6 @@ From the repository root, assuming that folder `output` already exists:
 
 # for the Postural Stability of the Sagittal Lifting Task
 ./run_pi_PosturalStability_SagittalLifting.m Postural_Stability_octave/tests/data/input/dinamica61_B.mat output
-
-
 
 # for the Performance Time of the LBT With Exoskeleton
 ./run_pi_PerformanceTime_LBT_Exo.m Performance_Time_octave/tests/data/input/dinamica56_B.mat output
@@ -107,12 +102,8 @@ From the repository root, assuming that folder `output` already exists:
 # for the Performance Time of the Sagittal Lifting Task
 ./run_pi_PerformanceTime_SagittalLifting.m Performance_Time_octave/tests/data/input/dinamica44_B.mat output
 
-
-
 # for the Smoothness of the Sagittal Lifting Task
 ./run_pi_Smoothness_SagittalLifting.m Smoothness_octave/tests/data/input/dinamica57_B.mat output
-
-
 
 # for the Spinal Loads Estimation of the LBT With Exoskeleton
 ./run_pi_SpinalLoadsEstimation.m Spinal_Loads_Estimation_octave/tests/data/input/dinamica56_B.mat output exo
@@ -122,4 +113,23 @@ From the repository root, assuming that folder `output` already exists:
 
 # for the Spinal Loads Estimation of the Sagittal Lifting Task
 ./run_pi_SpinalLoadsEstimation.m Spinal_Loads_Estimation_octave/tests/data/input/dinamica44_B.mat output sagittal
+```
+
+### Docker image
+
+_(only tested under linux)_
+
+Run the following command in order to create the docker image:
+
+```console
+docker build . -t pi_csic_manip
+```
+
+Assuming data files have standardized names (see above), and folder `output` is already created (to contain output file):
+
+```shell
+# Range of Movement material
+docker run --rm -v $PWD/Range_of_movement_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_RoM_SagittalLifting /in/dinamica44_B.mat /out
+docker run --rm -v $PWD/Range_of_movement_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_RoM_LBT_Exo /in/dinamica56_B.mat /out
+docker run --rm -v $PWD/Range_of_movement_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_RoM_LBT_Without /in/dinamica42_B.mat /out
 ```
