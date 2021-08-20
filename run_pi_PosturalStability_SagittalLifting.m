@@ -1,7 +1,7 @@
 #!/usr/bin/octave -qf
 
 printf ("current directory: %s\n", pwd())
-addpath("Postural_Stability/src")
+addpath("Postural_Stability_octave/src")
 addpath("Tools/src")
 
 arg_list = argv ();

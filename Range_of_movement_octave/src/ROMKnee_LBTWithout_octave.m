@@ -346,10 +346,16 @@ title('Segmentation Without Exoskeleton Trials')
 
 figure(2)
 frames = length(LHEE_z);
+
+if frames >= 1000
+  end_ = frames
+else
+  end_ = frames+(frames/1000)
+endif
 % (1:(frames/1000):frames)  si frames>1000
 % (1:(frames/1000):frames+(frames/1000)) si frames<1000
 % +(frames/1000)
-plot(t_1000,RKneeAngles_x(1:(frames/1000):frames)); 
+plot(t_1000,RKneeAngles_x(1:(frames/1000):end_)); 
 hold on 
 plot(t_1000, flex_knee,'--',t_1000, ext_knee,'--'); 
 legend({'x', 'Normal range of flexion-extension'},'Location','best');
@@ -359,7 +365,7 @@ ylabel('Degrees');
 title('Right Knee angles: Flexo-Extension');
 
 figure(3)
-plot(t_1000, RKneeAngles_y(1:(frames/1000):frames));
+plot(t_1000, RKneeAngles_y(1:(frames/1000):end_));
 legend({'y'},'Location','best');
 xlabel('Time in seconds (%1000 lifting cycle)'); %tanto por mil 
 ylabel('Degrees');  
@@ -367,7 +373,7 @@ ylabel('Degrees');
 title('Right Knee angles: Abduction-Adduction');
 
 figure(4)
-plot(t_1000, RKneeAngles_z(1:(frames/1000):frames));
+plot(t_1000, RKneeAngles_z(1:(frames/1000):end_));
 hold on 
 plot(t_1000, intRot_hip,'--'); 
 legend({'z', 'Normal range of internal rotation'},'Location','best');
@@ -380,7 +386,7 @@ figure(5)
 % (1:(frames/1000):frames)  si frames>1000
 % (1:(frames/1000):frames+(frames/1000)) si frames<1000
 % +(frames/1000)
-plot(t_1000,LKneeAngles_x(1:(frames/1000):frames)); 
+plot(t_1000,LKneeAngles_x(1:(frames/1000):end_)); 
 hold on 
 plot(t_1000, flex_knee,'--',t_1000, ext_knee,'--'); 
 legend({'x', 'Normal range of flexion-extension'},'Location','best');
@@ -390,7 +396,7 @@ ylabel('Degrees');
 title('Left Knee angles: Flexo-Extension');
 
 figure(6)
-plot(t_1000, LKneeAngles_y(1:(frames/1000):frames));
+plot(t_1000, LKneeAngles_y(1:(frames/1000):end_));
 legend({'y'},'Location','best');
 xlabel('Time in seconds (%1000 lifting cycle)'); %tanto por mil 
 ylabel('Degrees');
@@ -398,7 +404,7 @@ ylabel('Degrees');
 title('Left Knee angles: Abduction-Adduction');
 
 figure(7)
-plot(t_1000, LKneeAngles_z(1:(frames/1000):frames));
+plot(t_1000, LKneeAngles_z(1:(frames/1000):end_));
 hold on 
 plot(t_1000, intRot_hip,'--'); 
 legend({'z', 'Normal range of internal rotation'},'Location','best');
