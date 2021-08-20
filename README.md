@@ -38,11 +38,30 @@ From the repository root, assuming that folder `output` already exists:
 
 ```term
 # for the Range of Movement of the Sagittal Lifting Task
-./run_pi_RoM_SagittalLiftin Range_of_movement_octave/tests/data/input/Dinamica44_B.mat output
+./run_pi_RoM_SagittalLifting Range_of_movement_octave/tests/data/input/dinamica44_B.mat output
 
 # for the Range of Movement of the LBT with Exoskeleton
 ./run_pi_RoM_LBT_Exo Range_of_movement_octave/tests/data/input/dinamica56_B.mat output
 
 # for the Range of Movement of the LBT without Exoskeleton
 ./run_pi_RoM_LBT_Without Range_of_movement_octave/tests/data/input/dinamica42_B.mat output
+```
+
+### Docker image
+
+_(only tested under linux)_
+
+Run the following command in order to create the docker image:
+
+```console
+docker build . -t pi_csic_manip
+```
+
+Assuming data files have standardized names (see above), and folder `output` is already created (to contain output file):
+
+```shell
+# Range of Movement material
+docker run --rm -v $PWD/Range_of_movement_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_RoM_SagittalLifting /in/dinamica44_B.mat /out
+docker run --rm -v $PWD/Range_of_movement_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_RoM_LBT_Exo /in/dinamica56_B.mat /out
+docker run --rm -v $PWD/Range_of_movement_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_RoM_LBT_Without /in/dinamica42_B.mat /out
 ```
