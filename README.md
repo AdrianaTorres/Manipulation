@@ -147,4 +147,7 @@ docker run --rm -v $PWD/Performance_Time_octave/tests/data/input:/in -v $PWD/out
 # Smoothness
 docker run --rm -v $PWD/Smoothness_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_Smoothness_SagittalLifting /in/dinamica57_B.mat /out
 
+# Spinal load
+# to be completed
+
 ```
