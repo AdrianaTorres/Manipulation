@@ -24,6 +24,7 @@ RUN useradd -ms /bin/bash csic
 
 ADD Range_of_movement_octave /home/csic/Range_of_movement_octave
 ADD Postural_Stability_octave /home/csic/Postural_Stability_octave
+ADD Performance_Time_octave /home/csic/Performance_Time_octave
 ADD Tools /home/csic/Tools
 ADD run_pi_RoM_LBT_Exo.m /home/csic/run_pi_RoM_LBT_Exo
 ADD run_pi_RoM_LBT_Without.m /home/csic/run_pi_RoM_LBT_Without
@@ -31,6 +32,10 @@ ADD run_pi_RoM_SagittalLifting.m /home/csic/run_pi_RoM_SagittalLifting
 ADD run_pi_PosturalStability_LBT_Exo.m /home/csic/run_pi_PosturalStability_LBT_Exo
 ADD run_pi_PosturalStability_SagittalLifting.m /home/csic/run_pi_PosturalStability_SagittalLifting
 ADD run_pi_PosturalStability_LBT_Without.m /home/csic/run_pi_PosturalStability_LBT_Without
+ADD run_pi_PerformanceTime_LBT_Exo.m /home/csic/run_pi_PerformanceTime_LBT_Exo
+ADD run_pi_PerformanceTime_SagittalLifting.m /home/csic/run_pi_PerformanceTime_SagittalLifting
+ADD run_pi_PerformanceTime_LBT_Without.m /home/csic/run_pi_PerformanceTime_LBT_Without
+
 RUN ls -la /home/csic
 
 # set the user as owner of the copied files.
@@ -43,6 +48,9 @@ RUN ["chmod", "+x", "/home/csic/run_pi_RoM_SagittalLifting"]
 RUN ["chmod", "+x", "/home/csic/run_pi_PosturalStability_LBT_Exo"]
 RUN ["chmod", "+x", "/home/csic/run_pi_PosturalStability_LBT_Without"]
 RUN ["chmod", "+x", "/home/csic/run_pi_PosturalStability_SagittalLifting"]
+RUN ["chmod", "+x", "/home/csic/run_pi_PerformanceTime_LBT_Exo"]
+RUN ["chmod", "+x", "/home/csic/run_pi_PerformanceTime_LBT_Without"]
+RUN ["chmod", "+x", "/home/csic/run_pi_PerformanceTime_SagittalLifting"]
 #RUN ls -la /home/csic
 
 WORKDIR /home/csic

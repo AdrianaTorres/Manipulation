@@ -138,5 +138,9 @@ docker run --rm -v $PWD/Postural_Stability_octave/tests/data/input:/in -v $PWD/o
 docker run --rm -v $PWD/Postural_Stability_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_PosturalStability_LBT_Exo /in/dinamica56_B.mat /out
 docker run --rm -v $PWD/Postural_Stability_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_PosturalStability_LBT_Without /in/dinamica08_B.mat /out
 
+# Performance time
 
+docker run --rm -v $PWD/Performance_Time_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_PerformanceTime_SagittalLifting /in/dinamica44_B.mat /out
+docker run --rm -v $PWD/Performance_Time_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_PerformanceTime_LBT_Exo /in/dinamica56_B.mat /out
+docker run --rm -v $PWD/Performance_Time_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_PerformanceTime_LBT_Without /in/dinamica42_B.mat /out
 ```
