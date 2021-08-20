@@ -1,3 +1,4 @@
+function [ps_vector, ps_label] = PosturalStabilityLateralExo135_octave(file_name, input_phase)
 %% Postural Stability in Lateral Box Transfer task (Exo Trials): COM deviation from centre of Base of Support
 
 % Based on "Investigation and Analysis of the Effects of Manual Lifting and Carrying Activities on Postural and Gait Stability in Normal Subjects", Mohammed Alamoudi, University of Miami, 2017. 
@@ -30,11 +31,11 @@
 pkg load signal
 pkg load geometry
     
-clear all % Clear variables
-close all % Close figures
-clc
+##clear all % Clear variables
+##close all % Close figures
+##clc
 
-load('..\tests\data\input\dinamica56_B.mat') 
+load(file_name) 
 
 % LTOE RTOE LHEE RHEE LFOO2 RFOO2 marker trajectories
     LTOE_x = LTOE(:,1)'; 
@@ -358,6 +359,35 @@ title('Segmentation Exoskeleton Trials')
 
 %% Phase...
 
+if input_phase == 1
+  
+    LTOE_x = LTOE_x(idxO1:idxF1);
+    LTOE_y = LTOE_y(idxO1:idxF1);
+    
+    RTOE_x = RTOE_x(idxO1:idxF1);
+    RTOE_y = RTOE_y(idxO1:idxF1);
+    
+    LHEE_x = LHEE_x(idxO1:idxF1);
+    LHEE_y = LHEE_y(idxO1:idxF1);
+    
+    RHEE_x = RHEE_x(idxO1:idxF1);
+    RHEE_y = RHEE_y(idxO1:idxF1);
+    
+    LFOO2_x = LFOO2_x(idxO1:idxF1);
+    LFOO2_y = LFOO2_y(idxO1:idxF1);
+    
+    RFOO2_x = RFOO2_x(idxO1:idxF1);
+    RFOO2_y = RFOO2_y(idxO1:idxF1);
+    
+    CoM_ap = CoM_ap(idxO1:idxF1);
+        
+    CoM_ml = CoM_ml(idxO1:idxF1);
+    
+    end_idx = idxF1
+    init_idx = idxO1
+    
+elseif input_phase == 3
+    
     LTOE_x = LTOE_x(idxF2:idxF3);
     LTOE_y = LTOE_y(idxF2:idxF3);
     
@@ -379,12 +409,46 @@ title('Segmentation Exoskeleton Trials')
     CoM_ap = CoM_ap(idxF2:idxF3);
         
     CoM_ml = CoM_ml(idxF2:idxF3);
+    
+    end_idx = idxF3
+    init_idx = idxF2
+    
+elseif input_phase == 5
+    
+    LTOE_x = LTOE_x(idxF4:idxF5);
+    LTOE_y = LTOE_y(idxF4:idxF5);
+    
+    RTOE_x = RTOE_x(idxF4:idxF5);
+    RTOE_y = RTOE_y(idxF4:idxF5);
+    
+    LHEE_x = LHEE_x(idxF4:idxF5);
+    LHEE_y = LHEE_y(idxF4:idxF5);
+    
+    RHEE_x = RHEE_x(idxF4:idxF5);
+    RHEE_y = RHEE_y(idxF4:idxF5);
+    
+    LFOO2_x = LFOO2_x(idxF4:idxF5);
+    LFOO2_y = LFOO2_y(idxF4:idxF5);
+    
+    RFOO2_x = RFOO2_x(idxF4:idxF5);
+    RFOO2_y = RFOO2_y(idxF4:idxF5);
+    
+    CoM_ap = CoM_ap(idxF4:idxF5);
+        
+    CoM_ml = CoM_ml(idxF4:idxF5);
+    
+    end_idx = idxF5
+    init_idx = idxF4
+    
+end
 
 %% Vertex definition using feet markers coordinates in counterclockwise order: 
 % RFOO2 RTOE LTOE LFOO2 LHEE RHEE 
 
 X = [];
-for i = 1:(idxF3-idxF2+1) % should be changed when calculating another phase
+
+
+for i = 1:(end_idx-init_idx+1) % should be changed when calculating another phase
     for j = 1:6 % number of markers that define the BoS
         switch j
             case 1
@@ -405,7 +469,7 @@ end
 
 Y = [];
 
-for i = 1:(idxF3-idxF2+1) % should be changed when calculating another phase
+for i = 1:(end_idx-init_idx+1) % should be changed when calculating another phase
     for j = 1:6 % number of markers that define the BoS
         switch j
             case 1
@@ -426,7 +490,7 @@ end
 
 %% Centre of Base of Support calculation
 
-for i= 1:(idxF3-idxF2+1)   % should be changed when calculating another phase
+for i= 1:(end_idx-init_idx+1)   % should be changed when calculating another phase
     sumaN = 0;
     sumaD= 0;
     sumaN2 = 0;
@@ -494,7 +558,7 @@ end
         % CBos_ml(1,i) is the y component
         
 V =[];
-for i = 1:(idxF3-idxF2+1)  % should be changed when calculating another phase
+for i = 1:(end_idx-init_idx+1)  % should be changed when calculating another phase
     x1 = LTOE_x(i); 
     y1 = LTOE_y(i);
     x2 = RTOE_x(i);
@@ -516,7 +580,7 @@ end
 
 % H: Distance from CBoS to the straight line formed by the points RFOO2 and RHEE
 H =[];
-for i = 1:(idxF3-idxF2+1) % should be changed when calculating another phase
+for i = 1:(end_idx-init_idx+1) % should be changed when calculating another phase
     x3 = RFOO2_x(i); 
     y3 = RFOO2_y(i);
     x4 = RHEE_x(i);
@@ -542,7 +606,7 @@ AP_dev = [];
 ML_dev = [];
 Total_dev =[];
 
-for i =1:(idxF3-idxF2+1)      % should be changed when calculating another phase
+for i =1:(end_idx-init_idx+1)      % should be changed when calculating another phase
     ML_dev(1,i) = abs(CBoS_ap(1,i) - CoM_ap(1,i));  % The deviation of the CoM from CBoS in the fore-aft/ anterior-posterior direction at frame i. 
 
     AP_dev(1,i) = abs(CBoS_ml(1,i) - CoM_ml(1,i));  % The deviation of the CoM from CBoS in the medio-lateral direction at frame i.
@@ -565,11 +629,11 @@ end
  PS_AP = [];
  PS_ML = [];
  PS_Total = [];
- for i =1:(idxF3-idxF2+1)
+ for i =1:(end_idx-init_idx+1)
  PS_AP(1,i) = (AP_dev(1,i)/V(1,i));
  PosturalStability_AP = mean(PS_AP(1,:))*100;
  end
- for i =1:(idxF3-idxF2+1)
+ for i =1:(end_idx-init_idx+1)
  PS_ML(1,i) = (ML_dev(1,i)/H(1,i));
  PosturalStability_ML = mean(PS_ML(1,:))*100;
  end
@@ -620,7 +684,7 @@ title('Example of Base of Support Representation');
 
 ##PS = table([3; AP_dev_mean;  ML_dev_mean;  Total_dev_mean; PosturalStability_AP; PosturalStability_ML],'VariableNames',{'Postural_Stability_Measures'},'RowNames',{'Phase','Average A/P Deviation (mm)','Average M/L Deviation (mm)','Average Total Deviation (mm)','Postural Stability (A/P)','Postural Stability(M/L)'})
 PS = struct;
-PS.Phase=3;
+PS.Phase=input_phase;
 PS.Average_ApP_deviation_mm=AP_dev_mean; 
 PS.Average_MpL_deviation_mm=ML_dev_mean; 
 PS.Average_Total_deviation_mm=Total_dev_mean; 
@@ -628,3 +692,15 @@ PS.Postural_Stability_ApP=PosturalStability_AP;
 PS.Postural_Stability_MpL=PosturalStability_ML;
 
 PS
+
+label_1 = strcat('Mean_AnteriorPosterior_Deviation_Phase', num2str(PS.Phase), ', ');
+label_2 = strcat('Mean_MedioLaterial_Deviation_Phase', num2str(PS.Phase), ', ');
+label_3 = strcat('Mean_Total_Deviation_Phase', num2str(PS.Phase), ', ');
+label_4 = strcat('AnterioPosteiror_PosturalStability_Phase', num2str(PS.Phase), ', ');
+label_5 = strcat('MedioLateral_PosturalStability_Phase', num2str(PS.Phase));
+
+ps_vector = [PS.Average_ApP_deviation_mm, PS.Average_MpL_deviation_mm, PS.Average_Total_deviation_mm, PS.Postural_Stability_ApP, PS.Postural_Stability_MpL]
+ps_label = [label_1, label_2, label_3, label_4, label_5]
+
+
+end

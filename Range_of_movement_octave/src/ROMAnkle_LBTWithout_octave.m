@@ -1,5 +1,5 @@
-function [labels_ROM, vector_ROM] = ROMSpine_LBTWithout_octave(input_path)
-%% Range of movement of Spine in Lateral Box Transfer
+function [labels_ROM, vector_ROM] = ROMAnkle_LBTWithout_octave_error(input_path)
+%% Range of movement of Ankle in Lateral Box Transfer
 
 % Code AUTHOR: Yaiza Benito Molpeceres. DATE: January-May 2020.
 % Adapted to Octave by Guillermo Asín Prieto
@@ -16,18 +16,19 @@ pkg load signal
 close all % Close figures
 clc
 
-##load('..\tests\data\input\dinamica42_B.mat')
+%load('..\tests\data\input\dinamica42_B.mat')
 load(input_path)
              
 Ts = 1/Fs;
 t_total = (double(frames)*Ts);
 t_1000 = 0:(t_total/1000):(t_total-(t_total/1000));
 
-% Normal Ranges of Spine Motion
+% Normal Ranges of Ankle Motion
 for i =1:(length(t_1000))
-    flex_spine(1,i) = 75; % flexion
-    ext_spine(1,i) = -30;   % extension
-    abd_spine(1,i) = -35;   % abduction
+    flex_ankle(1,i) = 45; % flexion
+    ext_ankle(1,i) = -20;   % extension
+    supination_ankle(1,i) = 20;  % supination
+    pronation_ankle(1,i) = -20;  % pronation
 end
 
 % Feet markers for signal segmentation
@@ -36,8 +37,7 @@ end
 LHEE_z = LHEE(:,3)';  
 RHEE_z = RHEE(:,3)';    
   
-
-%% SEGMENTATION FIRST TURN: 
+%% Segmentation using LHEE, RHEE signals
 
 % First turn
 
@@ -80,6 +80,8 @@ for count=1:1:length(pks)
 end
 pks=pks(prominence>10);    
 locs=locs(prominence>10);
+
+
 
 
 
@@ -260,11 +262,9 @@ locs_TF2(find(TF2_aux))=[];
 
 
 
-
-
-
 %idx2 = find(TF2);
 idx2 = locs_TF2;
+
 
 
 flat3 = idx2 < locs2(1);  % 42 es <
@@ -293,9 +293,9 @@ idxF5 = length(LHEE_z);
 
 figure(1)
 t= 0:(length(LHEE)-1);
+
 RHEE_z_z = zscore(RHEE_z);
 LHEE_z_z = zscore(LHEE_z);
-
 plot(t,LHEE_z_z);
 hold on
 plot(t,RHEE_z_z);
@@ -303,6 +303,8 @@ plot(t,RHEE_z_z);
 %plot(t, zscore(LHEE_z));
 %hold on
 %plot(t,zscore(RHEE_z));
+
+
 
 %plot(t,zscore(LHEE_z),'r*', 'MarkerIndices', idxO1);
 plot(t(idxO1),LHEE_z_z(idxO1),'r*');
@@ -320,31 +322,30 @@ plot(t(idxO1),RHEE_z_z(idxO1),'r*');
 plot(t(idxF4),RHEE_z_z(idxF4),'r*');
 
 %plot(t,zscore(RHEE_z),'r*', 'MarkerIndices', idxF5);
-plot(t(idxF5),RHEE_z_z(idxF5),'r*');
+plot(t(idxF4),RHEE_z_z(idxF4),'r*');
 
 hold off
 legend('Left Heel Z', 'Right Heel Z');
-xlabel('Time in frames');
-ylabel('Milimetres');
 title('Segmentation Without Exoskeleton Trials')
 
-%% Import model data for Spine Relative Angles
+%% Import model data for Ankle Relative Angles
 
-% Spine  
-        RSpineAngles_x = ModelData.Raw.(ModelOutput{11})(1,:); 
-        RSpineAngles_y = ModelData.Raw.(ModelOutput{11})(2,:);
-        RSpineAngles_z = ModelData.Raw.(ModelOutput{11})(3,:);
+% Ankle  
+        RAnkleAngles_x = ModelData.Raw.(ModelOutput{5})(1,:); 
+        RAnkleAngles_y = ModelData.Raw.(ModelOutput{5})(2,:);
+        RAnkleAngles_z = ModelData.Raw.(ModelOutput{5})(3,:);
         
 
-        LSpineAngles_x = ModelData.Raw.(ModelOutput{12})(1,:);
-        LSpineAngles_y = ModelData.Raw.(ModelOutput{12})(2,:);
-        LSpineAngles_z = ModelData.Raw.(ModelOutput{12})(3,:);
+        LAnkleAngles_x = ModelData.Raw.(ModelOutput{6})(1,:);
+        LAnkleAngles_y = ModelData.Raw.(ModelOutput{6})(2,:);
+        LAnkleAngles_z = ModelData.Raw.(ModelOutput{6})(3,:);
         
 
-%% Spine signals visualization before going through segmentation
+%% Ankle signals visualization before going through segmentation
 
 figure(2)
 frames = length(LHEE_z);
+
 if frames >= 1000
   end_ = frames
 else
@@ -353,313 +354,315 @@ endif
 % (1:(frames/1000):frames)  si frames>1000
 % (1:(frames/1000):frames+(frames/1000)) si frames<1000
 % +(frames/1000)
-plot(t_1000,RSpineAngles_x(1:(frames/1000):end_)); 
+plot(t_1000,RAnkleAngles_x(1:(frames/1000):end_));%%+(frames/1000))); 
 hold on 
-plot(t_1000, flex_spine,'--',t_1000, ext_spine,'--'); 
+plot(t_1000, flex_ankle,'--',t_1000, ext_ankle,'--'); 
 legend({'x', 'Normal range of flexion-extension'},'Location','best');
 xlabel('Time in seconds (%1000 lifting cycle)'); %tanto por mil 
 ylabel('Degrees');
-%ylim([-100 160]);
-title('Right Spine angles: Flexo-Extension');
+ylim([-30 50]);
+title('Right Ankle angles: Flexo-Extension');
 
 figure(3)
-plot(t_1000, RSpineAngles_y(1:(frames/1000):end_));
+plot(t_1000, RAnkleAngles_y(1:(frames/1000):end_))%%+(frames/1000)));
 hold on 
-plot(t_1000, abd_spine,'--'); 
-legend({'y', 'Normal range of abduction'},'Location','best');
+plot(t_1000, supination_ankle,'--',t_1000, pronation_ankle,'--'); % ver cual es la positiva
+legend({'y', 'Normal range of supination-pronation'},'Location','best');
 xlabel('Time in seconds (%1000 lifting cycle)'); %tanto por mil 
 ylabel('Degrees');
-ylim([-40 10]);
-title('Right Spine angles: Abduction-Adduction');
+ylim([-30 30]);
+title('Right Ankle angles: Supination-Pronation');
 
 figure(4)
-plot(t_1000, RSpineAngles_z(1:(frames/1000):end_));
+plot(t_1000, RAnkleAngles_z(1:(frames/1000):end_))%%+(frames/1000)));
 legend({'z'},'Location','best');
 xlabel('Time in seconds (%1000 lifting cycle)'); %tanto por mil 
 ylabel('Degrees');
 %ylim([-70 50]);
-title('Right Spine angles: Internal-External Rotation');
+title('Right Ankle angles: Internal-External Rotation');
 
 figure(5)
 % (1:(frames/1000):frames)  si frames>1000
 % (1:(frames/1000):frames+(frames/1000)) si frames<1000
 % +(frames/1000)
-plot(t_1000,LSpineAngles_x(1:(frames/1000):end_)); 
+plot(t_1000,LAnkleAngles_x(1:(frames/1000):end_))%%+(frames/1000))); 
 hold on 
-plot(t_1000, flex_spine,'--',t_1000, ext_spine,'--'); 
+plot(t_1000, flex_ankle,'--',t_1000, ext_ankle,'--'); 
 legend({'x', 'Normal range of flexion-extension'},'Location','best');
 xlabel('Time in seconds (%1000 lifting cycle)'); %tanto por mil 
 ylabel('Degrees');
-%ylim([-100 160]);
-title('Left Spine angles: Flexo-Extension');
+ylim([-30 50]);;
+title('Left Ankle angles: Flexo-Extension');
 
 figure(6)
-plot(t_1000, LSpineAngles_y(1:(frames/1000):end_));
+plot(t_1000, LAnkleAngles_y(1:(frames/1000):end_))%%+(frames/1000)));
 hold on 
-plot(t_1000, abd_spine,'--'); 
-legend({'y', 'Normal range of abduction'},'Location','best');
+plot(t_1000, supination_ankle,'--',t_1000, pronation_ankle,'--'); % ver cual es la positiva
+legend({'y', 'Normal range of supination-pronation'},'Location','best');
 xlabel('Time in seconds (%1000 lifting cycle)'); %tanto por mil 
 ylabel('Degrees');
-ylim([-40 5]);
-title('Left Spine angles: Abduction-Adduction');
+ylim([-30 30]);
+title('Left Ankle angles: Supination-Pronation');
 
 figure(7)
-plot(t_1000, LSpineAngles_z(1:(frames/1000):end_));
+plot(t_1000, LAnkleAngles_z(1:(frames/1000):end_))%%+(frames/1000)));
 legend({'z'},'Location','best');
 xlabel('Time in seconds (%1000 lifting cycle)'); %tanto por mil 
 ylabel('Degrees');
 %ylim([-70 80]);
-title('Left Spine angles: Internal-External Rotation');
+title('Left Ankle angles: Internal-External Rotation');
 
 %figure(3)
-%plot(t ,RSpineAngles_x, t, RSpineAngles_y, t, RSpineAngles_z);
+%plot(t ,RAnkleAngles_x, t, RAnkleAngles_y, t, RAnkleAngles_z);
 %legend('x','y','z');
 %xlabel('time in frames'); % frames totales del trial
-%title('Right Spine angles');
+%title('Right Ankle angles');
 
 %figure(4)
-%plot(t,LSpineAngles_x, t, LSpineAngles_y, t, LSpineAngles_z);   
+%plot(t,LAnkleAngles_x, t, LAnkleAngles_y, t, LAnkleAngles_z);   
 %legend('x','y','z');
 %xlabel('time in frames'); % frames totales del trial
-%title('Left Spine angles');
+%title('Left Ankle angles');
 
 %% Signal Segmentation
 
-% Right Spine 
+% Right Ankle 
 
-phase1_RSpine_x = RSpineAngles_x(idxO1:idxF2);  
-phase1_RSpine_y = RSpineAngles_y(idxO1:idxF2);
-phase1_RSpine_z = RSpineAngles_z(idxO1:idxF2);
+phase1_RAnkle_x = RAnkleAngles_x(idxO1:idxF1);  
+phase1_RAnkle_y = RAnkleAngles_y(idxO1:idxF1);
+phase1_RAnkle_z = RAnkleAngles_z(idxO1:idxF1);
 
-phase2_RSpine_x = RSpineAngles_x(idxF2:idxF4); 
-phase2_RSpine_y = RSpineAngles_y(idxF2:idxF4);
-phase2_RSpine_z = RSpineAngles_z(idxF2:idxF4);
+phase2_RAnkle_x = RAnkleAngles_x(idxF1:idxF3); 
+phase2_RAnkle_y = RAnkleAngles_y(idxF1:idxF3);
+phase2_RAnkle_z = RAnkleAngles_z(idxF1:idxF3);
 
-phase3_RSpine_x = RSpineAngles_x(idxF4:idxF5); 
-phase3_RSpine_y = RSpineAngles_y(idxF4:idxF5);
-phase3_RSpine_z = RSpineAngles_z(idxF4:idxF5);
+phase3_RAnkle_x = RAnkleAngles_x(idxF3:idxF5); 
+phase3_RAnkle_y = RAnkleAngles_y(idxF3:idxF5);
+phase3_RAnkle_z = RAnkleAngles_z(idxF3:idxF5);
 
-% Left Spine
+% Left Ankle
 
-phase1_LSpine_x = LSpineAngles_x(idxO1:idxF2);
-phase1_LSpine_y = LSpineAngles_y(idxO1:idxF2);
-phase1_LSpine_z = LSpineAngles_z(idxO1:idxF2);
+phase1_LAnkle_x = LAnkleAngles_x(idxO1:idxF1);
+phase1_LAnkle_y = LAnkleAngles_y(idxO1:idxF1);
+phase1_LAnkle_z = LAnkleAngles_z(idxO1:idxF1);
 
-phase2_LSpine_x = LSpineAngles_x(idxF2:idxF4);
-phase2_LSpine_y = LSpineAngles_y(idxF2:idxF4);
-phase2_LSpine_z = LSpineAngles_z(idxF2:idxF4);
+phase2_LAnkle_x = LAnkleAngles_x(idxF1:idxF3);
+phase2_LAnkle_y = LAnkleAngles_y(idxF1:idxF3);
+phase2_LAnkle_z = LAnkleAngles_z(idxF1:idxF3);
 
-phase3_LSpine_x = LSpineAngles_x(idxF4:idxF5);
-phase3_LSpine_y = LSpineAngles_y(idxF4:idxF5);
-phase3_LSpine_z = LSpineAngles_z(idxF4:idxF5);
+phase3_LAnkle_x = LAnkleAngles_x(idxF3:idxF5);
+phase3_LAnkle_y = LAnkleAngles_y(idxF3:idxF5);
+phase3_LAnkle_z = LAnkleAngles_z(idxF3:idxF5);
 
 %% time vectors definition
 
-t2 = 0:1:(length(phase3_RSpine_x)-1);
-t3 = 0:1:(length(phase1_RSpine_x)-1);
-t4 = 0:1:(length(phase2_RSpine_x)-1);
+t2 = 0:1:(length(phase3_RAnkle_x)-1);
+t3 = 0:1:(length(phase1_RAnkle_x)-1);
+t4 = 0:1:(length(phase2_RAnkle_x)-1);
 
-% Right Spine figures: MOVEMENT SEGMENTED INTO THE 4 PHASES
+% Right Ankle figures: MOVEMENT SEGMENTED INTO THE 4 PHASES
 
 figure(8)
 subplot(3,1,1)
-plot (t3, phase1_RSpine_x, t3, phase1_RSpine_y, '--',t3,phase1_RSpine_z, '.');
+plot (t3, phase1_RAnkle_x, t3, phase1_RAnkle_y, '--',t3,phase1_RAnkle_z, '.');
 legend('x','y','z')
-xlabel('Time in frames');  
+xlabel('Time in frames'); 
 ylabel('Degrees');
 title('RIGHT ANGLES: Phase 1'); % Box Carrying from Sagittal to Frontal
 subplot(3,1,2)
-plot(t4, phase2_RSpine_x,t4,phase2_RSpine_y, '--',t4,phase2_RSpine_z, '.');
+plot(t4, phase2_RAnkle_x,t4,phase2_RAnkle_y, '--',t4,phase2_RAnkle_z, '.');
 legend('x','y','z')
-xlabel('Time in frames');  
+xlabel('Time in frames'); 
 ylabel('Degrees');
 title('Phase 2'); % Box Carrying from Frontal to Sagittal
 subplot(3,1,3)
-plot(t2, phase3_RSpine_x, t2, phase3_RSpine_y,'--', t2, phase3_RSpine_z, '.');
+plot(t2, phase3_RAnkle_x, t2, phase3_RAnkle_y,'--', t2, phase3_RAnkle_z, '.');
 legend('x','y','z')
-xlabel('Time in frames');  
+xlabel('Time in frames'); 
 ylabel('Degrees');
 title('Phase 3'); % Placing box sagittal plane again
 
 
-% Left Spine figures: MOVEMENT SEGMENTED INTO THE 4 PHASES
+% Left Ankle figures: MOVEMENT SEGMENTED INTO THE 4 PHASES
 
 figure(9)
 subplot(3,1,1)
-plot (t3, phase1_LSpine_x, t3, phase1_LSpine_y, '--',t3,phase1_LSpine_z, '.');
+plot (t3, phase1_LAnkle_x, t3, phase1_LAnkle_y, '--',t3,phase1_LAnkle_z, '.');
 legend('x','y','z')
 xlabel('Time in frames');  
 ylabel('Degrees');
 title('LEFT ANGLES: Phase 1'); % Box Carrying from Sagittal to Frontal
 subplot(3,1,2)
-plot(t4, phase2_LSpine_x,t4, phase2_LSpine_y, '--',t4, phase2_LSpine_z, '.');
+plot(t4, phase2_LAnkle_x,t4, phase2_LAnkle_y, '--',t4, phase2_LAnkle_z, '.');
 legend('x','y','z')
-xlabel('Time in frames');  
+xlabel('Time in frames'); 
 ylabel('Degrees');
 title('Phase 2'); % Box Carrying from Frontal to Sagittal
 subplot(3,1,3)
-plot(t2, phase3_LSpine_x, t2, phase3_LSpine_y,'--', t2, phase3_LSpine_z, '.');
+plot(t2, phase3_LAnkle_x, t2, phase3_LAnkle_y,'--', t2, phase3_LAnkle_z, '.');
 legend('x','y','z')
-xlabel('Time in frames');  
+xlabel('Time in frames'); 
 ylabel('Degrees');
 title('Phase 3'); % Placing box sagittal plane again
 
 
 %% ROM calculation
 
-% Right Spine
+% Right Ankle
 
-RSpine_ph1(:,1) = phase1_RSpine_x;
-RSpine_ph1(:,2) = phase1_RSpine_y;
-RSpine_ph1(:,3) = phase1_RSpine_z;
+RAnkle_ph1(:,1) = phase1_RAnkle_x;
+RAnkle_ph1(:,2) = phase1_RAnkle_y;
+RAnkle_ph1(:,3) = phase1_RAnkle_z;
 
-RSpine_ph2(:,1) = phase2_RSpine_x;
-RSpine_ph2(:,2) = phase2_RSpine_y;
-RSpine_ph2(:,3) = phase2_RSpine_z;
+RAnkle_ph2(:,1) = phase2_RAnkle_x;
+RAnkle_ph2(:,2) = phase2_RAnkle_y;
+RAnkle_ph2(:,3) = phase2_RAnkle_z;
 
-RSpine_ph3(:,1) = phase3_RSpine_x;
-RSpine_ph3(:,2) = phase3_RSpine_y;
-RSpine_ph3(:,3) = phase3_RSpine_z;
-
-
-RSpine_ph1_max = max(RSpine_ph1);
-RSpine_ph1_min = min(RSpine_ph1);
-
-RSpine_ph2_max = max(RSpine_ph2);
-RSpine_ph2_min = min(RSpine_ph2);
-
-RSpine_ph3_max = max(RSpine_ph3);
-RSpine_ph3_min = min(RSpine_ph3);
+RAnkle_ph3(:,1) = phase3_RAnkle_x;
+RAnkle_ph3(:,2) = phase3_RAnkle_y;
+RAnkle_ph3(:,3) = phase3_RAnkle_z;
 
 
-for i = 1:length(RSpine_ph1_max)
-    RSpine_ph1_ROM(1,i) = RSpine_ph1_max(i)- RSpine_ph1_min(i);
+RAnkle_ph1_max = max(RAnkle_ph1);
+RAnkle_ph1_min = min(RAnkle_ph1);
+
+RAnkle_ph2_max = max(RAnkle_ph2);
+RAnkle_ph2_min = min(RAnkle_ph2);
+
+RAnkle_ph3_max = max(RAnkle_ph3);
+RAnkle_ph3_min = min(RAnkle_ph3);
+
+
+for i = 1:length(RAnkle_ph1_max)
+    RAnkle_ph1_ROM(1,i) = RAnkle_ph1_max(i)- RAnkle_ph1_min(i);
 end
 
-for i = 1:length(RSpine_ph1_max)
-    RSpine_ph2_ROM(1,i) = RSpine_ph2_max(i)- RSpine_ph2_min(i);
+for i = 1:length(RAnkle_ph1_max)
+    RAnkle_ph2_ROM(1,i) = RAnkle_ph2_max(i)- RAnkle_ph2_min(i);
 end
 
-for i = 1:length(RSpine_ph1_max)
-    RSpine_ph3_ROM(1,i) = RSpine_ph3_max(i)- RSpine_ph3_min(i);
+for i = 1:length(RAnkle_ph1_max)
+    RAnkle_ph3_ROM(1,i) = RAnkle_ph3_max(i)- RAnkle_ph3_min(i);
 end
 
-% Left Spine
+% Left Ankle
 
-LSpine_ph1(:,1) = phase1_LSpine_x;
-LSpine_ph1(:,2) = phase1_LSpine_y;
-LSpine_ph1(:,3) = phase1_LSpine_z;
+LAnkle_ph1(:,1) = phase1_LAnkle_x;
+LAnkle_ph1(:,2) = phase1_LAnkle_y;
+LAnkle_ph1(:,3) = phase1_LAnkle_z;
 
-LSpine_ph2(:,1) = phase2_LSpine_x;
-LSpine_ph2(:,2) = phase2_LSpine_y;
-LSpine_ph2(:,3) = phase2_LSpine_z;
+LAnkle_ph2(:,1) = phase2_LAnkle_x;
+LAnkle_ph2(:,2) = phase2_LAnkle_y;
+LAnkle_ph2(:,3) = phase2_LAnkle_z;
 
-LSpine_ph3(:,1) = phase3_LSpine_x;
-LSpine_ph3(:,2) = phase3_LSpine_y;
-LSpine_ph3(:,3) = phase3_LSpine_z;
-
-
-LSpine_ph1_max = max(LSpine_ph1);
-LSpine_ph1_min = min(LSpine_ph1);
-
-LSpine_ph2_max = max(LSpine_ph2);
-LSpine_ph2_min = min(LSpine_ph2);
-
-LSpine_ph3_max = max(LSpine_ph3);
-LSpine_ph3_min = min(LSpine_ph3);
+LAnkle_ph3(:,1) = phase3_LAnkle_x;
+LAnkle_ph3(:,2) = phase3_LAnkle_y;
+LAnkle_ph3(:,3) = phase3_LAnkle_z;
 
 
-for i = 1:length(RSpine_ph1_max)
-    LSpine_ph1_ROM(1,i) = LSpine_ph1_max(i)- LSpine_ph1_min(i);
+LAnkle_ph1_max = max(LAnkle_ph1);
+LAnkle_ph1_min = min(LAnkle_ph1);
+
+LAnkle_ph2_max = max(LAnkle_ph2);
+LAnkle_ph2_min = min(LAnkle_ph2);
+
+LAnkle_ph3_max = max(LAnkle_ph3);
+LAnkle_ph3_min = min(LAnkle_ph3);
+
+
+for i = 1:length(RAnkle_ph1_max)
+    LAnkle_ph1_ROM(1,i) = LAnkle_ph1_max(i)- LAnkle_ph1_min(i);
 end
 
-for i = 1:length(RSpine_ph1_max)
-    LSpine_ph2_ROM(1,i) = LSpine_ph2_max(i)- LSpine_ph2_min(i);
+for i = 1:length(RAnkle_ph1_max)
+    LAnkle_ph2_ROM(1,i) = LAnkle_ph2_max(i)- LAnkle_ph2_min(i);
 end
 
-for i = 1:length(RSpine_ph1_max)
-    LSpine_ph3_ROM(1,i) = LSpine_ph3_max(i)- LSpine_ph3_min(i);
+for i = 1:length(RAnkle_ph1_max)
+    LAnkle_ph3_ROM(1,i) = LAnkle_ph3_max(i)- LAnkle_ph3_min(i);
 end
 
 
-% Total ROM Spine Angles
+% Total ROM Ankle Angles
 
-RSpine_total(:,1) = RSpineAngles_x;
-RSpine_total(:,2) = RSpineAngles_y;
-RSpine_total(:,3) = RSpineAngles_z;
+RAnkle_total(:,1) = RAnkleAngles_x;
+RAnkle_total(:,2) = RAnkleAngles_y;
+RAnkle_total(:,3) = RAnkleAngles_z;
 
-RSpine_total_max = max(RSpine_total);
-RSpine_total_min = min(RSpine_total);
+RAnkle_total_max = max(RAnkle_total);
+RAnkle_total_min = min(RAnkle_total);
 
-for i = 1:length(RSpine_total_max)
-    RSpine_total_ROM(1,i) = RSpine_total_max(i)- RSpine_total_min(i);
+for i = 1:length(RAnkle_total_max)
+    RAnkle_total_ROM(1,i) = RAnkle_total_max(i)- RAnkle_total_min(i);
 end
 
-LSpine_total(:,1) = LSpineAngles_x;
-LSpine_total(:,2) = LSpineAngles_y;
-LSpine_total(:,3) = LSpineAngles_z;
+LAnkle_total(:,1) = LAnkleAngles_x;
+LAnkle_total(:,2) = LAnkleAngles_y;
+LAnkle_total(:,3) = LAnkleAngles_z;
 
-LSpine_total_max = max(LSpine_total);
-LSpine_total_min = min(LSpine_total);
+LAnkle_total_max = max(LAnkle_total);
+LAnkle_total_min = min(LAnkle_total);
 
-for i = 1:length(LSpine_total_max)
-    LSpine_total_ROM(1,i) = LSpine_total_max(i)- LSpine_total_min(i);
+for i = 1:length(LAnkle_total_max)
+    LAnkle_total_ROM(1,i) = LAnkle_total_max(i)- LAnkle_total_min(i);
 end
 
-%ROM_Right_Spine = table([RSpine_ph1_ROM(1);RSpine_ph2_ROM(1);RSpine_ph3_ROM(1)],[RSpine_ph1_ROM(2);RSpine_ph2_ROM(2);RSpine_ph3_ROM(2)],[RSpine_ph1_ROM(3);RSpine_ph2_ROM(3);RSpine_ph3_ROM(3)],'VariableNames',{'X','Y','Z'},'RowNames',{'Phase 1','Phase 2','Phase 3'})
-ROM_Right_Spine = struct;
-ROM_Right_Spine.Phase1_X=RSpine_ph1_ROM(1);
-ROM_Right_Spine.Phase1_Y=RSpine_ph1_ROM(2);
-ROM_Right_Spine.Phase1_Z=RSpine_ph1_ROM(3);
-ROM_Right_Spine.Phase2_X=RSpine_ph2_ROM(1);
-ROM_Right_Spine.Phase2_Y=RSpine_ph2_ROM(2);
-ROM_Right_Spine.Phase2_Z=RSpine_ph2_ROM(3);
-ROM_Right_Spine.Phase3_X=RSpine_ph3_ROM(1);
-ROM_Right_Spine.Phase3_Y=RSpine_ph3_ROM(2);
-ROM_Right_Spine.Phase3_Z=RSpine_ph3_ROM(3);
+##ROM_Right_Ankle = table([RAnkle_ph1_ROM(1);RAnkle_ph2_ROM(1);RAnkle_ph3_ROM(1)],[RAnkle_ph1_ROM(2);RAnkle_ph2_ROM(2);RAnkle_ph3_ROM(2)],[RAnkle_ph1_ROM(3);RAnkle_ph2_ROM(3);RAnkle_ph3_ROM(3)],'VariableNames',{'X','Y','Z'},'RowNames',{'Phase 1','Phase 2','Phase 3'})
+ROM_Right_Ankle = struct;
+ROM_Right_Ankle.Phase1_X=RAnkle_ph1_ROM(1);
+ROM_Right_Ankle.Phase1_Y=RAnkle_ph1_ROM(2);
+ROM_Right_Ankle.Phase1_Z=RAnkle_ph1_ROM(3);
+ROM_Right_Ankle.Phase2_X=RAnkle_ph2_ROM(1);
+ROM_Right_Ankle.Phase2_Y=RAnkle_ph2_ROM(2);
+ROM_Right_Ankle.Phase2_Z=RAnkle_ph2_ROM(3);
+ROM_Right_Ankle.Phase3_X=RAnkle_ph3_ROM(1);
+ROM_Right_Ankle.Phase3_Y=RAnkle_ph3_ROM(2);
+ROM_Right_Ankle.Phase3_Z=RAnkle_ph3_ROM(3);
 
-ROM_Right_Spine
+ROM_Right_Ankle
 
-%ROM_Left_Spine = table([LSpine_ph1_ROM(1);LSpine_ph2_ROM(1);LSpine_ph3_ROM(1)],[LSpine_ph1_ROM(2);LSpine_ph2_ROM(2);LSpine_ph3_ROM(2)],[LSpine_ph1_ROM(3);LSpine_ph2_ROM(3);LSpine_ph3_ROM(3)],'VariableNames',{'X','Y','Z'},'RowNames',{'Phase 1','Phase 2','Phase 3'})
-ROM_Left_Spine = struct;
-ROM_Left_Spine.Phase1_X=LSpine_ph1_ROM(1);
-ROM_Left_Spine.Phase1_Y=LSpine_ph1_ROM(2);
-ROM_Left_Spine.Phase1_Z=LSpine_ph1_ROM(3);
-ROM_Left_Spine.Phase2_X=LSpine_ph2_ROM(1);
-ROM_Left_Spine.Phase2_Y=LSpine_ph2_ROM(2);
-ROM_Left_Spine.Phase2_Z=LSpine_ph2_ROM(3);
-ROM_Left_Spine.Phase3_X=LSpine_ph3_ROM(1);
-ROM_Left_Spine.Phase3_Y=LSpine_ph3_ROM(2);
-ROM_Left_Spine.Phase3_Z=LSpine_ph3_ROM(3);
+%ROM_Left_Ankle = table([LAnkle_ph1_ROM(1);LAnkle_ph2_ROM(1);LAnkle_ph3_ROM(1)],[LAnkle_ph1_ROM(2);LAnkle_ph2_ROM(2);LAnkle_ph3_ROM(2)],[LAnkle_ph1_ROM(3);LAnkle_ph2_ROM(3);LAnkle_ph3_ROM(3)],'VariableNames',{'X','Y','Z'},'RowNames',{'Phase 1','Phase 2','Phase 3'})
+ROM_Left_Ankle = struct;
+ROM_Left_Ankle.Phase1_X=LAnkle_ph1_ROM(1);
+ROM_Left_Ankle.Phase1_Y=LAnkle_ph1_ROM(2);
+ROM_Left_Ankle.Phase1_Z=LAnkle_ph1_ROM(3);
+ROM_Left_Ankle.Phase2_X=LAnkle_ph2_ROM(1);
+ROM_Left_Ankle.Phase2_Y=LAnkle_ph2_ROM(2);
+ROM_Left_Ankle.Phase2_Z=LAnkle_ph2_ROM(3);
+ROM_Left_Ankle.Phase3_X=LAnkle_ph3_ROM(1);
+ROM_Left_Ankle.Phase3_Y=LAnkle_ph3_ROM(2);
+ROM_Left_Ankle.Phase3_Z=LAnkle_ph3_ROM(3);
 
-ROM_Left_Spine
+ROM_Left_Ankle
 
-%TotalROM_Spine = table([RSpine_total_ROM(1); LSpine_total_ROM(1)],[RSpine_total_ROM(2); LSpine_total_ROM(2)],[RSpine_total_ROM(3); LSpine_total_ROM(3)],'VariableNames',{'X','Y','Z'},'RowNames',{'Right','Left'})
-TotalROM_Spine = struct;
-TotalROM_Spine.Right_X=RSpine_total_ROM(1);
-TotalROM_Spine.Right_Y=RSpine_total_ROM(2);
-TotalROM_Spine.Right_Z=RSpine_total_ROM(3);
-TotalROM_Spine.Left_X=LSpine_total_ROM(1);
-TotalROM_Spine.Left_Y=LSpine_total_ROM(2);
-TotalROM_Spine.Left_Z=LSpine_total_ROM(3);
+##TotalROM_Ankle = table([RAnkle_total_ROM(1); LAnkle_total_ROM(1)],[RAnkle_total_ROM(2); LAnkle_total_ROM(2)],[RAnkle_total_ROM(3); LAnkle_total_ROM(3)],'VariableNames',{'X','Y','Z'},'RowNames',{'Right','Left'})
 
-TotalROM_Spine
+TotalROM_Ankle = struct;
+TotalROM_Ankle.Right_X=RAnkle_total_ROM(1);
+TotalROM_Ankle.Right_Y=RAnkle_total_ROM(2);
+TotalROM_Ankle.Right_Z=RAnkle_total_ROM(3);
+TotalROM_Ankle.Left_X=LAnkle_total_ROM(1);
+TotalROM_Ankle.Left_Y=LAnkle_total_ROM(2);
+TotalROM_Ankle.Left_Z=LAnkle_total_ROM(3);
 
-labels_ROM = "'Right_Spine_ROM_X_Phase1', 'Right_Spine_ROM_Y_Phase1', 'Right_Spine_ROM_Z_Phase1', ...
-'Right_Spine_ROM_X_Phase2', 'Right_Spine_ROM_Y_Phase2', 'Right_Spine_ROM_Z_Phase2', ...
-'Right_Spine_ROM_X_Phase3', 'Right_Spine_ROM_Y_Phase3', 'Right_Spine_ROM_Z_Phase3', ...
-'Left_Spine_ROM_X_Phase1', 'Left_Spine_ROM_Y_Phase1', 'Left_Spine_ROM_Z_Phase1', ...
-'Left_Spine_ROM_X_Phase2', 'Left_Spine_ROM_Y_Phase2', 'Left_Spine_ROM_Z_Phase2', ...
-'Left_Spine_ROM_X_Phase3', 'Left_Spine_ROM_Y_Phase3', 'Left_Spine_ROM_Z_Phase3', ...
-'Right_Spine_ROM_X_Total', 'Right_Spine_ROM_Y_Total', 'Right_Spine_ROM_Z_Total', ...
-'Left_Spine_ROM_X_Total', 'Left_Spine_ROM_Y_Total', 'Left_Spine_ROM_Z_Total'";
+TotalROM_Ankle
+
+
+labels_ROM = "'Right_Ankle_ROM_X_Phase1', 'Right_Ankle_ROM_Y_Phase1', 'Right_Ankle_ROM_Z_Phase1', ...
+'Right_Ankle_ROM_X_Phase2', 'Right_Ankle_ROM_Y_Phase2', 'Right_Ankle_ROM_Z_Phase2', ...
+'Right_Ankle_ROM_X_Phase3', 'Right_Ankle_ROM_Y_Phase3', 'Right_Ankle_ROM_Z_Phase3', ...
+'Left_Ankle_ROM_X_Phase1', 'Left_Ankle_ROM_Y_Phase1', 'Left_Ankle_ROM_Z_Phase1', ...
+'Left_Ankle_ROM_X_Phase2', 'Left_Ankle_ROM_Y_Phase2', 'Left_Ankle_ROM_Z_Phase2', ...
+'Left_Ankle_ROM_X_Phase3', 'Left_Ankle_ROM_Y_Phase3', 'Left_Ankle_ROM_Z_Phase3', ...
+'Right_Ankle_ROM_X_Total', 'Right_Ankle_ROM_Y_Total', 'Right_Ankle_ROM_Z_Total', ...
+'Left_Ankle_ROM_X_Total', 'Left_Ankle_ROM_Y_Total', 'Left_Ankle_ROM_Z_Total'";
             
-vector_ROM = [ROM_Right_Spine.Phase1_X, ROM_Right_Spine.Phase1_Y, ROM_Right_Spine.Phase1_Z, ...
-ROM_Right_Spine.Phase2_X, ROM_Right_Spine.Phase2_Y, ROM_Right_Spine.Phase2_Z, ...
-ROM_Right_Spine.Phase3_X, ROM_Right_Spine.Phase3_Y, ROM_Right_Spine.Phase3_Z, ...
-ROM_Left_Spine.Phase1_X, ROM_Left_Spine.Phase1_Y, ROM_Left_Spine.Phase1_Z, ...
-ROM_Left_Spine.Phase2_X, ROM_Left_Spine.Phase2_Y, ROM_Left_Spine.Phase2_Z, ...
-ROM_Left_Spine.Phase3_X, ROM_Left_Spine.Phase3_Y, ROM_Left_Spine.Phase3_Z, ...
-TotalROM_Spine.Right_X, TotalROM_Spine.Right_Y, TotalROM_Spine.Right_Z, ...
-TotalROM_Spine.Left_X, TotalROM_Spine.Left_Y, TotalROM_Spine.Left_Z]; 
+vector_ROM = [ROM_Right_Ankle.Phase1_X, ROM_Right_Ankle.Phase1_Y, ROM_Right_Ankle.Phase1_Z, ...
+ROM_Right_Ankle.Phase2_X, ROM_Right_Ankle.Phase2_Y, ROM_Right_Ankle.Phase2_Z, ...
+ROM_Right_Ankle.Phase3_X, ROM_Right_Ankle.Phase3_Y, ROM_Right_Ankle.Phase3_Z, ...
+ROM_Left_Ankle.Phase1_X, ROM_Left_Ankle.Phase1_Y, ROM_Left_Ankle.Phase1_Z, ...
+ROM_Left_Ankle.Phase2_X, ROM_Left_Ankle.Phase2_Y, ROM_Left_Ankle.Phase2_Z, ...
+ROM_Left_Ankle.Phase3_X, ROM_Left_Ankle.Phase3_Y, ROM_Left_Ankle.Phase3_Z, ...
+TotalROM_Ankle.Right_X, TotalROM_Ankle.Right_Y, TotalROM_Ankle.Right_Z, ...
+TotalROM_Ankle.Left_X, TotalROM_Ankle.Left_Y, TotalROM_Ankle.Left_Z];
 end
