@@ -132,4 +132,11 @@ Assuming data files have standardized names (see above), and folder `output` is 
 docker run --rm -v $PWD/Range_of_movement_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_RoM_SagittalLifting /in/dinamica44_B.mat /out
 docker run --rm -v $PWD/Range_of_movement_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_RoM_LBT_Exo /in/dinamica56_B.mat /out
 docker run --rm -v $PWD/Range_of_movement_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_RoM_LBT_Without /in/dinamica42_B.mat /out
+
+# Postural stability
+docker run --rm -v $PWD/Postural_Stability_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_PosturalStability_SagittalLifting /in/dinamica61_B.mat /out
+docker run --rm -v $PWD/Postural_Stability_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_PosturalStability_LBT_Exo /in/dinamica56_B.mat /out
+docker run --rm -v $PWD/Postural_Stability_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_PosturalStability_LBT_Without /in/dinamica08_B.mat /out
+
+
 ```
