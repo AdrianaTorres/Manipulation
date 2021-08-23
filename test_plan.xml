@@ -7,7 +7,7 @@
   <!-- <test pi_name="./run_pi_RoM_LBT_Without"
         parameters="/in/dinamica42_B.mat /out"
        input_folder="Range_of_movement_octave/tests/data/input"
-       output_folder="Range_of_movement_octave/tests/data/output/without"/>
+       output_folder="Range_of_movement_octave/tests/data/output/without"/> -->
   <test pi_name="./run_pi_RoM_SagittalLifting"
         parameters="/in/dinamica44_B.mat /out"
         input_folder="Range_of_movement_octave/tests/data/input"
@@ -51,6 +51,6 @@
   <test pi_name="./run_pi_SpinalLoadsEstimation"
         parameters="/in/dinamica44_B.mat sagittal /out"
         input_folder="Spinal_Loads_Estimation_octave/tests/data/input"
-        output_folder="Spinal_Loads_Estimation_octave/tests/data/output/sagittal"/> -->
+        output_folder="Spinal_Loads_Estimation_octave/tests/data/output/sagittal"/>
 
 </test_plan>
