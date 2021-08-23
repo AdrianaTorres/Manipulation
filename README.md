@@ -48,7 +48,7 @@ Main_PosturalStability_Lateral_Exo('Postural_Stability_octave/tests/data/input/d
 # For the Postural Stability computation of the Lateral Box Transfer task Without Exoskeleton
 Main_PosturalStability_Lateral_Without('Postural_Stability_octave/tests/data/input/dinamica08_B.mat', "output")
 
-# For the Postural Stability computation of the Sagittal Lifting task 
+# For the Postural Stability computation of the Sagittal Lifting task
 Main_PosturalStability_Sagittal('Postural_Stability_octave/tests/data/input/dinamica61_B.mat', "output")
 
 # For the Performance Time computation of the Lateral Box Transfer task With Exoskeleton
@@ -57,7 +57,7 @@ Main_Time_LBT_Exo_octave('Performance_Time_octave/tests/data/input/dinamica56_B.
 # For the Performance Time computation of the Lateral Box Transfer task Without Exoskeleton
 Main_Time_LBT_Without_octave('Performance_Time_octave/tests/data/input/dinamica42_B.mat', "output")
 
-# For the Performance Time computation of the Sagittal Lifting task 
+# For the Performance Time computation of the Sagittal Lifting task
 Main_Time_SagittalLifting_octave('Performance_Time_octave/tests/data/input/dinamica44_B.mat', "output")
 
 # For the Smoothnes computation of the Sagittal Lifting task
@@ -154,3 +154,23 @@ docker run --rm -v $PWD/Spinal_Loads_Estimation_octave/tests/data/input:/in -v $
 docker run --rm -v $PWD/Spinal_Loads_Estimation_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_SpinalLoadsEstimation /in/dinamica42_B.mat "no-exo" /out
 docker run --rm -v $PWD/Spinal_Loads_Estimation_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_SpinalLoadsEstimation /in/dinamica44_B.mat "sagittal" /out
 ```
+
+## Testing
+
+All scripts are provided with reference input and related output files.
+Under linux, an automatic regression testing can be launched, making sure all scripts generate the recorded output files, given the recorded input files.
+
+This is based on the [Eurobench docker testing tool](https://github.com/eurobench/docker_test).
+The test plan, related to the script calls previously listed, is in file [test_plan.xml](test_plan.xml).
+
+Assuming the docker image has been created using name `pi_csic_manip`, the testing can be launched locally using (`python3` is required):
+
+```shell
+# only done once
+wget -O test_docker_call.py https://raw.githubusercontent.com/eurobench/docker_test/master/test_docker_call.py
+export DOCKER_IMAGE='pi_csic_manip'
+export TEST_PLAN='test_plan.xml'
+python3 test_docker_call.py
+```
+
+If any of the scripts does not generate the expected output files, the python file will state it.
