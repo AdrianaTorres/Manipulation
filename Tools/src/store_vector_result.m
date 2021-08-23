@@ -1,10 +1,10 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% store_scalar.m
+% store_vector_result.m
 %
 % Store a scalar into yaml file
 %
 % Anthony Remazeilles & Jawad Masood
-% Copyright Tecnalia CTAG 2020 (We may discuss this)
+% Copyright Tecnalia CTAG 2020
 % Beerware license.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
