@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % store_vector_result.m
 %
-% Store a scalar into yaml file
+% Store a vector into yaml file
 %
 % Anthony Remazeilles & Jawad Masood
 % Copyright Tecnalia CTAG 2020

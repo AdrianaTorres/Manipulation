@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test_plan>
+  <test pi_name="./run_pi_RoM_LBT_Exo"
+        parameters="/in/dinamica56_B.mat /out"
+        input_folder="Range_of_movement_octave/tests/data/input"
+        output_folder="Range_of_movement_octave/tests/data/output/exo"/>
+  <!-- <test pi_name="./run_pi_RoM_LBT_Without"
+        parameters="/in/dinamica42_B.mat /out"
+       input_folder="Range_of_movement_octave/tests/data/input"
+       output_folder="Range_of_movement_octave/tests/data/output/without"/> -->
+  <test pi_name="./run_pi_RoM_SagittalLifting"
+        parameters="/in/dinamica44_B.mat /out"
+        input_folder="Range_of_movement_octave/tests/data/input"
+        output_folder="Range_of_movement_octave/tests/data/output/sagittal"/>
+   <test pi_name="./run_pi_PerformanceTime_LBT_Exo"
+        parameters="/in/dinamica56_B.mat /out"
+        input_folder="Performance_Time_octave/tests/data/input"
+        output_folder="Performance_Time_octave/tests/data/output/exo"/>
+  <test pi_name="./run_pi_PerformanceTime_LBT_Without"
+        parameters="/in/dinamica42_B.mat /out"
+       input_folder="Performance_Time_octave/tests/data/input"
+       output_folder="Performance_Time_octave/tests/data/output/without"/>
+  <test pi_name="./run_pi_PerformanceTime_SagittalLifting"
+        parameters="/in/dinamica44_B.mat /out"
+        input_folder="Performance_Time_octave/tests/data/input"
+        output_folder="Performance_Time_octave/tests/data/output/sagittal"/>
+  <test pi_name="./run_pi_PosturalStability_LBT_Exo"
+        parameters="/in/dinamica56_B.mat /out"
+        input_folder="Postural_Stability_octave/tests/data/input"
+        output_folder="Postural_Stability_octave/tests/data/output/exo"/>
+  <test pi_name="./run_pi_PosturalStability_LBT_Without"
+        parameters="/in/dinamica08_B.mat /out"
+        input_folder="Postural_Stability_octave/tests/data/input"
+        output_folder="Postural_Stability_octave/tests/data/output/without"/>
+  <test pi_name="./run_pi_PosturalStability_SagittalLifting"
+        parameters="/in/dinamica61_B.mat /out"
+        input_folder="Postural_Stability_octave/tests/data/input"
+        output_folder="Postural_Stability_octave/tests/data/output/sagittal"/>
+  <test pi_name="./run_pi_Smoothness_SagittalLifting"
+        parameters="/in/dinamica57_B.mat /out"
+        input_folder="Smoothness_octave/tests/data/input"
+        output_folder="Smoothness_octave/tests/data/output"/>
+  <test pi_name="./run_pi_SpinalLoadsEstimation"
+        parameters="/in/dinamica56_B.mat exo /out"
+        input_folder="Spinal_Loads_Estimation_octave/tests/data/input"
+        output_folder="Spinal_Loads_Estimation_octave/tests/data/output/exo"/>
+  <test pi_name="./run_pi_SpinalLoadsEstimation"
+        parameters="/in/dinamica42_B.mat no-exo /out"
+        input_folder="Spinal_Loads_Estimation_octave/tests/data/input"
+        output_folder="Spinal_Loads_Estimation_octave/tests/data/output/without"/>
+  <test pi_name="./run_pi_SpinalLoadsEstimation"
+        parameters="/in/dinamica44_B.mat sagittal /out"
+        input_folder="Spinal_Loads_Estimation_octave/tests/data/input"
+        output_folder="Spinal_Loads_Estimation_octave/tests/data/output/sagittal"/>
+
+</test_plan>
