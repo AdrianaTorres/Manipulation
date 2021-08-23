@@ -7,11 +7,20 @@ Copyright CSIC 2020
 ## Purposes
 
 This toolbox allows computing Performance Indicator (PI) within the Manipulation Tasks project protocol.
-In particular, Range of Movement (RoM), Postural Stability (PS), Performance Time (PT), Spinal Loads Estimation and Movement Smothness can be computed.
+In particular, Range of Movement (RoM), Postural Stability (PS), Performance Time (PT), Spinal Loads Estimation and Movement Smoothness can be computed.
 
 ## Installation
 
 THIS INFORMATION SHOULD BE ADDED
+
+Software requirements:
+
+* `octave` version >= 5.2.0
+* octave packages:
+  * `control` >= 3.2.0
+  * `signal` >= 1.4.1
+  * `matgeom` >= 1.2.2
+  * `geometry` >= 4.0.0
 
 ## Usage
 
@@ -30,9 +39,8 @@ Main_ROM_LBT_Exo('Range_of_movement_octave/tests/data/input/dinamica56_B.mat', "
 # For the Range of Movement computation of the Lateral Box Transfer task Without Exoskeleton
 Main_ROM_LBT_Without('Range_of_movement_octave/tests/data/input/dinamica42_B.mat', "output")
 
-# For the Range of Movement computation of the Sagittal Lifting task 
+# For the Range of Movement computation of the Sagittal Lifting task
 Main_ROM_SagittalLifting_octave('Range_of_movement_octave/tests/data/input/dinamica44_B.mat', "output")
-
 
 # For the Postural Stability computation of the Lateral Box Transfer task With Exoskeleton
 Main_PosturalStability_Lateral_Exo('Postural_Stability_octave/tests/data/input/dinamica56_B.mat', "output")
@@ -43,8 +51,6 @@ Main_PosturalStability_Lateral_Without('Postural_Stability_octave/tests/data/inp
 # For the Postural Stability computation of the Sagittal Lifting task 
 Main_PosturalStability_Sagittal('Postural_Stability_octave/tests/data/input/dinamica61_B.mat', "output")
 
-
-
 # For the Performance Time computation of the Lateral Box Transfer task With Exoskeleton
 Main_Time_LBT_Exo_octave('Performance_Time_octave/tests/data/input/dinamica56_B.mat', "output")
 
@@ -54,12 +60,8 @@ Main_Time_LBT_Without_octave('Performance_Time_octave/tests/data/input/dinamica4
 # For the Performance Time computation of the Sagittal Lifting task 
 Main_Time_SagittalLifting_octave('Performance_Time_octave/tests/data/input/dinamica44_B.mat', "output")
 
-
-
-# For the Smoothnes computation of the Sagittal Lifting task 
+# For the Smoothnes computation of the Sagittal Lifting task
 Main_Time_Smoothness_octave('Smoothness_octave/tests/data/input/dinamica57_B.mat', "output")
-
-
 
 # For the Spinal Loads computation of the Lateral Box Transfer task With Exoskeleton
 Main_SpinalLoadsEstim_octave('Spinal_Loads_Estimation_octave/tests/data/input/dinamica56_B.mat', "output", "exo")
@@ -148,6 +150,7 @@ docker run --rm -v $PWD/Performance_Time_octave/tests/data/input:/in -v $PWD/out
 docker run --rm -v $PWD/Smoothness_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_Smoothness_SagittalLifting /in/dinamica57_B.mat /out
 
 # Spinal load
-# to be completed
-
+docker run --rm -v $PWD/Spinal_Loads_Estimation_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_SpinalLoadsEstimation /in/dinamica56_B.mat "exo" /out
+docker run --rm -v $PWD/Spinal_Loads_Estimation_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_SpinalLoadsEstimation /in/dinamica42_B.mat "no-exo" /out
+docker run --rm -v $PWD/Spinal_Loads_Estimation_octave/tests/data/input:/in -v $PWD/output:/out pi_csic_manip ./run_pi_SpinalLoadsEstimation /in/dinamica44_B.mat "sagittal" /out
 ```
