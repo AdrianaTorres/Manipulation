@@ -2,19 +2,13 @@ type: 'vector_of_vector'
 values:
  - label: [Mean_AnteriorPosterior_Deviation_Phase1,Mean_MedioLaterial_Deviation_Phase1,Mean_Total_Deviation_Phase1,AnterioPosteiror_PosturalStability_Phase1,MedioLateral_PosturalStability_Phase1]
    value: [19.93228, 18.11857, 27.97694, 16.14963, 12.68603]
-
  - label: [Mean_AnteriorPosterior_Deviation_Phase2,Mean_MedioLaterial_Deviation_Phase2,Mean_Total_Deviation_Phase2,AnterioPosteiror_PosturalStability_Phase2,MedioLateral_PosturalStability_Phase2]
    value: [27.90357, 22.70582, 38.62281, 22.71948, 14.91959]
-
  - label: [Mean_AnteriorPosterior_Deviation_Phase3,Mean_MedioLaterial_Deviation_Phase3,Mean_Total_Deviation_Phase3,AnterioPosteiror_PosturalStability_Phase3,MedioLateral_PosturalStability_Phase3]
    value: [18.96885, 11.66593, 25.02936, 15.52390, 7.80507]
-
  - label: [Mean_AnteriorPosterior_Deviation_Phase4,Mean_MedioLaterial_Deviation_Phase4,Mean_Total_Deviation_Phase4,AnterioPosteiror_PosturalStability_Phase4,MedioLateral_PosturalStability_Phase4]
    value: [22.29562, 33.81443, 42.58951, 18.26705, 23.50901]
-
  - label: [Mean_AnteriorPosterior_Deviation_Phase5,Mean_MedioLaterial_Deviation_Phase5,Mean_Total_Deviation_Phase5,AnterioPosteiror_PosturalStability_Phase5,MedioLateral_PosturalStability_Phase5]
    value: [34.20770, 8.28123, 36.02382, 27.74955, 5.70607]
-
  - label: []
    value: []
-

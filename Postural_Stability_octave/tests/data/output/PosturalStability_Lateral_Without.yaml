@@ -2,19 +2,13 @@ type: 'vector_of_vector'
 values:
  - label: [Mean_AnteriorPosterior_Deviation_Phase1,Mean_MedioLaterial_Deviation_Phase1,Mean_Total_Deviation_Phase1,AnterioPosteiror_PosturalStability_Phase1,MedioLateral_PosturalStability_Phase1]
    value: [35.97294, 9.67735, 39.30564, 34.57924, 7.00350]
-
  - label: [Mean_AnteriorPosterior_Deviation_Phase2,Mean_MedioLaterial_Deviation_Phase2,Mean_Total_Deviation_Phase2,AnterioPosteiror_PosturalStability_Phase2,MedioLateral_PosturalStability_Phase2]
    value: [19.41777, 24.57812, 35.16255, 17.83712, 16.89342]
-
  - label: [Mean_AnteriorPosterior_Deviation_Phase3,Mean_MedioLaterial_Deviation_Phase3,Mean_Total_Deviation_Phase3,AnterioPosteiror_PosturalStability_Phase3,MedioLateral_PosturalStability_Phase3]
    value: [37.30852, 13.37420, 40.52027, 30.84837, 9.13713]
-
  - label: []
    value: []
-
  - label: []
    value: []
-
  - label: []
    value: []
-

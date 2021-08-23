@@ -44,17 +44,6 @@ RUN ls -la /home/csic
 RUN chown -R csic:csic /home/csic/
 
 USER csic
-RUN ["chmod", "+x", "/home/csic/run_pi_RoM_LBT_Exo"]
-RUN ["chmod", "+x", "/home/csic/run_pi_RoM_LBT_Without"]
-RUN ["chmod", "+x", "/home/csic/run_pi_RoM_SagittalLifting"]
-RUN ["chmod", "+x", "/home/csic/run_pi_PosturalStability_LBT_Exo"]
-RUN ["chmod", "+x", "/home/csic/run_pi_PosturalStability_LBT_Without"]
-RUN ["chmod", "+x", "/home/csic/run_pi_PosturalStability_SagittalLifting"]
-RUN ["chmod", "+x", "/home/csic/run_pi_PerformanceTime_LBT_Exo"]
-RUN ["chmod", "+x", "/home/csic/run_pi_PerformanceTime_LBT_Without"]
-RUN ["chmod", "+x", "/home/csic/run_pi_PerformanceTime_SagittalLifting"]
-RUN ["chmod", "+x", "/home/csic/run_pi_Smoothness_SagittalLifting"]
-RUN ["chmod", "+x", "/home/csic/run_pi_SpinalLoadsEstimation"]
 #RUN ls -la /home/csic
 
 WORKDIR /home/csic
